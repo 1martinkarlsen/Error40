@@ -13,7 +13,6 @@ import Model.Budget;
 import Model.Campaign;
 import Model.DataMapper;
 import Interfaces.DataMapperInterface;
-import Model.DataPutter;
 import Model.POE;
 import Model.PartnerDashboardLine;
 import Model.SellerDashboardLine;
@@ -29,7 +28,6 @@ import java.util.Map;
 public class Control implements ControlIF {
 
     private DataMapperInterface dm;
-    private DataPutter dp = new DataPutter();
     private AuthentificationInterface au;
     
     private String rank = null;
@@ -49,7 +47,7 @@ public class Control implements ControlIF {
     public void logout() {
         u = null;
         id = null;
-        dm.resetLists();
+        //dm.resetLists();
     }
 
     public boolean login(String username, String password) {
@@ -59,33 +57,17 @@ public class Control implements ControlIF {
     }
 
     public Map<String, AdminDashboardLine> getAdminDashboardLines() {
-        // Fill in a list of admin dashboard lines.
-        if (dm.getAdminDashboardLines().isEmpty()) {
-            dm.fillAllAdminDashboardLines();
-        } else {
-            dm.resetLists();
-            dm.fillAllAdminDashboardLines();
-        }
-
-        return dm.getAdminDashboardLines();
+        return dm.getAllAdminDashboardLines();
+              
     }
 
     public Map<String, SellerDashboardLine> getSellerDashboardLines() {
-        dm.resetLists();
-        dm.fillAllSellerDashboardLines();
-        return dm.getSellerDashboardLines();
+        return dm.getAllSellerDashboardLines();
+
     }
 
     public Map<String, PartnerDashboardLine> getPartnerDashboardLines() {
-        // Fill in a list of partner dashboard lines.
-        if (dm.getPartnerDashboardLines().isEmpty()) {
-            dm.fillAllPartnerDashboardLines();
-        } else {
-            dm.resetLists();
-            dm.fillAllPartnerDashboardLines();
-        }
-
-        return dm.getPartnerDashboardLines();
+       return dm.getAllPartnerDashboardLines();
     }
 
     public String getUserRank() {
@@ -101,32 +83,18 @@ public class Control implements ControlIF {
     }
     
     public Map<String, Campaign> getCampaign() {
-        // Fill in a list of partner dashboard lines.
-        
-        dm.resetLists();
-        dm.fillAllCampaigns();
-
-        return dm.getCampaigns();
+        return dm.getAllCampaigns();
     }
     
     public Map<String, POE> getPOEs() {
-        dm.resetLists();
-        dm.fillAllPOEs();
-        
-        return dm.getPoes();
+        return dm.getAllPOEs();
     }
     
     public Map<String, Budget> getBudget() {
-        dm.resetLists();
-        dm.fillAllBudgets();
-        
-        return dm.getBudgets();
+        return dm.getAllBudgets();
     }
     
     public Map<String, User> getUsers() {
-        dm.resetLists();
-        dm.fillAllUsers();
-        
-        return dm.getUsers();
+        return dm.getAllUsers();
     }
 }

@@ -20,48 +20,26 @@ import java.util.Map;
  */
 public interface DataMapperInterface {
 
-    boolean fillAllAdminDashboardLines();
+    Map<String, AdminDashboardLine> getAllAdminDashboardLines();
 
-    boolean fillAllCampaigns();
+    Map<String, Campaign> getAllCampaigns();
 
-    boolean fillAllPartnerDashboardLines();
-    //    public Campaign getSingleCampaign(String id) {
-    //
-    //        String sql = "SELECT * FROM dell_campaigns "
-    //                + "WHERE id = " + id;
-    //
-    //        try {
-    //            con = new Db().getConnection();
-    //
-    //            statement = con.createStatement();
-    //            rs = statement.executeQuery(sql);
-    //            if(rs.next()) {
-    //                return new Campaign(rs.getInt("id"), rs.getString("name"), rs.getInt("stepNumber"), rs.getString("description"), String start_day, String start_month, String start_year, String end_day, String end_month, String end_year, String target, String objective, int approve_seller_project, int approve_partner_project, int approve_seller_POE, int partnerID, int sellerID, int budgetID)
-    //           return null;
-    //            }
-    //        } catch (Exception e) {
-    //        }
-    //
-    //        try {
-    //            con.close();
-    //        } catch (Exception e) {
-    //        }
-    //    return null;
-    //    }
+    Map<String, PartnerDashboardLine> getAllPartnerDashboardLines();
+    
+    Map<String, SellerDashboardLine> getAllSellerDashboardLines();
 
-    boolean fillAllSellerDashboardLines();
+    boolean fillPartnerDashboardLines(int partnerID, Map<String, PartnerDashboardLine> partnerDashboardLines);
 
-    boolean fillPartnerDashboardLines(int partnerID);
-
-    boolean fillSellerDashboardLines(int sellerID);
+    boolean fillSellerDashboardLines(int sellerID, Map<String, SellerDashboardLine> sellerDashboardLines);
 
     Map<String, AdminDashboardLine> getAdminDashboardLines();
 
-    boolean getAllBudgets();
-
-    boolean getAllPOEs();
-
-    boolean getAllUsers();
+//    
+//    boolean getAllBudgets();
+//
+//    boolean getAllPOEs();
+//
+//    boolean getAllUsers();
 
     Map<String, Budget> getBudgets();
 
@@ -71,11 +49,11 @@ public interface DataMapperInterface {
 
     Map<String, POE> getPoes();
     
-    boolean fillAllUsers();
+    Map<String, User> getAllUsers();
     
-    boolean fillAllBudgets();
+    Map<String, Budget> getAllBudgets();
     
-    boolean fillAllPOEs();
+    Map<String, POE> getAllPOEs();
 
     Map<String, SellerDashboardLine> getSellerDashboardLines();
 
@@ -85,6 +63,21 @@ public interface DataMapperInterface {
 
     Map<String, User> getUsers();
 
-    void resetLists();
+    // void resetLists();
+    
+     // Campaigns
+    public boolean createCampaign(String name, String description, String target, String budget, 
+            String start_day, String start_month, String start_year,
+            String end_day, String end_month, String end_year,
+            String objective, String partnerID, String sellerID);
+    public boolean updateCampaign(String cID, String name, String description, String target, String budget, 
+            String start_day, String start_month, String start_year,
+            String end_day, String end_month, String end_year,
+            String objective);
+    public boolean approveCampaignProject(String cID, String rank);
+    public boolean approveCampaignPOE(String cID, String rank);
+    public boolean uploadFile(String cID, String partnerID, String name, String type); // Huske at sørge for at den selv generere navnet: QxFYxx
+    
+    // Users (to be add'ed).
     
 }

@@ -20,68 +20,24 @@ import java.util.logging.Logger;
  */
 public class DataMapper implements DataMapperInterface {
 
-    Map<String, User> users = new HashMap(); // Liste over alle users.
-    Map<String, Campaign> campaigns = new HashMap(); // Liste over alle kampagner.
-    Map<String, Budget> budgets = new HashMap(); // Liste over alle budgetter.
-    Map<String, POE> poes = new HashMap(); // Liste over alle filer.
-    Map<String, AdminDashboardLine> adminDashboardLines = new HashMap(); // Liste over den information der skal vises på Admin dashboard.
-    Map<String, SellerDashboardLine> sellerDashboardLines = new HashMap(); // Liste over den information der skal vises på Seller dashboard.
-    Map<String, PartnerDashboardLine> partnerDashboardLines = new HashMap(); // Liste over den information der skal vises på Partner dashboard.
+//    Map<String, User> users = new HashMap(); // Liste over alle users.
+//    Map<String, Campaign> campaigns = new HashMap(); // Liste over alle kampagner.
+//    Map<String, Budget> budgets = new HashMap(); // Liste over alle budgetter.
+//    Map<String, POE> poes = new HashMap(); // Liste over alle filer.
+//    Map<String, AdminDashboardLine> adminDashboardLines = new HashMap(); // Liste over den information der skal vises på Admin dashboard.
+//    Map<String, SellerDashboardLine> sellerDashboardLines = new HashMap(); // Liste over den information der skal vises på Seller dashboard.
+//    Map<String, PartnerDashboardLine> partnerDashboardLines = new HashMap(); // Liste over den information der skal vises på Partner dashboard.
 
     private Statement statement;
     private Db db;
     private Connection con;
     private ResultSet rs;
 
-    @Override
-    public Map<String, AdminDashboardLine> getAdminDashboardLines() {
-        return adminDashboardLines;
-    }
 
-    @Override
-    public Map<String, SellerDashboardLine> getSellerDashboardLines() {
-        return sellerDashboardLines;
-    }
-
-    @Override
-    public Map<String, PartnerDashboardLine> getPartnerDashboardLines() {
-        return partnerDashboardLines;
-    }
-
-    @Override
-    public Map<String, User> getUsers() {
-        return users;
-    }
-
-    @Override
-    public Map<String, Campaign> getCampaigns() {
-        return campaigns;
-    }
-
-    @Override
-    public Map<String, Budget> getBudgets() {
-        return budgets;
-    }
-
-    @Override
-    public Map<String, POE> getPoes() {
-        return poes;
-    }
-
-    @Override
-    public void resetLists() {
-        users = new HashMap();
-        campaigns = new HashMap();
-        poes = new HashMap();
-        budgets = new HashMap();
-        adminDashboardLines = new HashMap();
-        sellerDashboardLines = new HashMap();
-        partnerDashboardLines = new HashMap();
-
-    }
     
     @Override
-    public boolean fillAllUsers() {
+    public Map<String, User>  getAllUsers() {
+        Map<String, User> users = new HashMap();
         String sql = "SELECT * FROM dell_users";
         try {
             con = new Db().getConnection();
@@ -95,18 +51,19 @@ public class DataMapper implements DataMapperInterface {
 
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
 
         try {
             con.close();
         } catch (Exception e) {
         }
-        return true;
+        return users;
     }
         
     @Override
-    public boolean fillAllBudgets() {
+    public Map<String, Budget> getAllBudgets() {
+        Map<String, Budget> budgets = new HashMap(); 
         String sql = "SELECT * FROM dell_budget";
         try {
             con = new Db().getConnection();
@@ -121,18 +78,19 @@ public class DataMapper implements DataMapperInterface {
 
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
 
         try {
             con.close();
         } catch (Exception e) {
         }
-        return true;
+        return budgets;
     }
 
     @Override
-    public boolean fillAllCampaigns() {
+    public Map<String, Campaign> getAllCampaigns() {
+        Map<String, Campaign> campaigns = new HashMap();
         String sql = "SELECT * FROM dell_campaigns";
         try {
             con = new Db().getConnection();
@@ -171,18 +129,19 @@ public class DataMapper implements DataMapperInterface {
 
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
 
         try {
             con.close();
         } catch (Exception e) {
         }
-        return true;
+        return campaigns;
     }
 
     @Override
-    public boolean fillAllPOEs() {
+    public Map<String, POE> getAllPOEs() {
+        Map<String, POE> poes = new HashMap();
         String sql = "SELECT * FROM dell_files";
         try {
             con = new Db().getConnection();
@@ -197,14 +156,14 @@ public class DataMapper implements DataMapperInterface {
 
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
 
         try {
             con.close();
         } catch (Exception e) {
         }
-        return true;
+        return poes;
     }
 
     @Override
@@ -312,7 +271,8 @@ public class DataMapper implements DataMapperInterface {
     }
 
     @Override
-    public boolean fillAllAdminDashboardLines() {
+    public Map<String, AdminDashboardLine> getAllAdminDashboardLines() {
+        Map<String, AdminDashboardLine> adminDashboardLines = new HashMap();
         // get all the seller id's
         String sql = "select id from dell_users where rank = 2";
 
@@ -336,7 +296,7 @@ public class DataMapper implements DataMapperInterface {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
         
         try {
@@ -344,7 +304,7 @@ public class DataMapper implements DataMapperInterface {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return true;
+        return adminDashboardLines;
     }
 
     @Override
@@ -449,7 +409,7 @@ public class DataMapper implements DataMapperInterface {
     }
 
     @Override
-    public boolean fillSellerDashboardLines(int sellerID) {
+    public boolean fillSellerDashboardLines(int sellerID, Map<String, SellerDashboardLine> sellerDashboardLines ) {
         // get all the partner id's associated with the current seller
         String sql = "select distinct u.id from dell_users u , dell_campaigns c "
                 + "where u.rank = 1 and c.partnerID = u.id and c.sellerID = " + sellerID + " order by u.id";
@@ -484,7 +444,8 @@ public class DataMapper implements DataMapperInterface {
     }
 
     @Override
-    public boolean fillAllSellerDashboardLines() {
+    public Map<String, SellerDashboardLine> getAllSellerDashboardLines() {
+        Map<String, SellerDashboardLine> sellerDashboardLines = new HashMap();
         // get all the partner id's associated with the current seller
         String sql = "select id from dell_users where rank = 2";
 
@@ -502,24 +463,24 @@ public class DataMapper implements DataMapperInterface {
             
             // for each partner ID create a dashboard line
             for (Integer i : ids) {
-                fillSellerDashboardLines(i);
+                fillSellerDashboardLines(i, sellerDashboardLines);
             }
             
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
 
         try {
             con.close();
-            return true;
+            return sellerDashboardLines;
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
     
     @Override
-    public boolean fillPartnerDashboardLines(int partnerID) {
+    public boolean fillPartnerDashboardLines(int partnerID, Map<String, PartnerDashboardLine> partnerDashboardLines) {
         
         // Henter campaign navn samt den tilknyttede sellers navn.
         String sql4 = "select c.ID AS \"cID\", c.NAME AS name, u.FIRSTNAME AS \"sellername\", "
@@ -563,7 +524,8 @@ public class DataMapper implements DataMapperInterface {
     }
     
     @Override
-    public boolean fillAllPartnerDashboardLines() {
+    public Map<String, PartnerDashboardLine> getAllPartnerDashboardLines() {
+        Map<String, PartnerDashboardLine> partnerDashboardLines = new HashMap();
         // get all the partner id's associated with the current seller
         String sql = "select u.id from dell_users u where u.rank = 1";
 
@@ -581,12 +543,12 @@ public class DataMapper implements DataMapperInterface {
 
             // for each partner ID create a dashboard line
             for (Integer i : ids) {
-                fillPartnerDashboardLines(i);
+                fillPartnerDashboardLines(i, partnerDashboardLines);
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
         
         try {
@@ -594,47 +556,295 @@ public class DataMapper implements DataMapperInterface {
         } catch (Exception e) {
         }
 
-        return true;
+        return partnerDashboardLines;
     }
     
-//    public Campaign getSingleCampaign(String id) {
-//        
-//        String sql = "SELECT * FROM dell_campaigns "
-//                + "WHERE id = " + id;
-//        
-//        try {
-//            con = new Db().getConnection();
-//            
-//            statement = con.createStatement();
-//            rs = statement.executeQuery(sql);
-//            if(rs.next()) {
-//                return new Campaign(rs.getInt("id"), rs.getString("name"), rs.getInt("stepNumber"), rs.getString("description"), String start_day, String start_month, String start_year, String end_day, String end_month, String end_year, String target, String objective, int approve_seller_project, int approve_partner_project, int approve_seller_POE, int partnerID, int sellerID, int budgetID)
-//           return null;
-//            }
-//        } catch (Exception e) {
-//        }
-//        
-//        try {
-//            con.close();
-//        } catch (Exception e) {
-//        }
-//    return null;
-//    }
+    
+    // Creates a budget
+    private String createBudget(String value) {
+        String sql = "INSERT INTO dell_budget"
+                + "(id, value) VALUES (seq_budget.NEXTVAL, '" + value + "')";
+        
+        String sqlGet = "SELECT seq_budget.CURRVAL AS \"currentValue\" FROM dell_budget";
+        
+        String bID = null;
+        try {            
+            // Inserts data
+            statement = con.createStatement();
+            statement.addBatch(sql);
+            statement.executeBatch();
+            
+            // Recieve ID
+            rs = statement.executeQuery(sqlGet);
+            rs.next();
+            bID = rs.getString("currentValue");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return bID;
+    }; 
+    
+    // updates a budget 
+    private boolean updateBudget(String bID, String value) {
+        String sql = "UPDATE dell_budget SET value=" + value + ""
+                + "WHERE id=" + bID;
+        
+        try {
+            statement = con.createStatement();
+            statement.addBatch(sql);
+            statement.executeBatch();
+            
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }; 
+    
+    @Override
+    public boolean createCampaign(String name, String description, String target, String budget,
+            String start_day, String start_month, String start_year,
+            String end_day, String end_month, String end_year, String objective, String partnerID, String sellerID) {
+
+
+            String startDate = start_day + "-" + start_month + "-" + start_year; // Concatenate to a start date.
+            String endDate = end_day + "-" + end_month + "-" + end_year; // Concatenate to an end date.
+            
+            String bID = createBudget(budget); // Create a budget and get its ID.
+        
+            String sql = "INSERT INTO dell_campaigns "
+                    + "(id, name, stepNumber, description, start_date, end_date, "
+                    + "target, objectives, approve_seller_project, approve_partner_project, approve_seller_POE, approve_partner_POE, budgetID, partnerID, sellerID)"
+                    + " VALUES (seq_campaigns.NEXTVAL, '" + name + "', '1', '" + description + "', '" + startDate + "', '" + endDate + "' "
+                    + ", '" + target + "', '" + objective + "', '0', '0', '0', '0', '" + bID + "', '" + partnerID + "', '" + sellerID + "' "
+                    + ")";
+            
+            String sqlGetID = "SELECT seq_campaigns.CURRVAL AS \"currentCID\" FROM dell_campaigns";
+            
+            String cID = null;
+            try {
+                con = new Db().getConnection();
+                
+                // Insert campaign.
+                statement = con.createStatement();
+                statement.addBatch(sql);
+                statement.executeBatch();
+                
+                // Select campaign ID.
+                rs = statement.executeQuery(sqlGetID);
+                rs.next();
+                cID = rs.getString("currentCID");
+                
+                if(bID != null) {
+                    uploadFile(cID, partnerID, name, "poe");
+                } 
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return false;
+            }
+            
+            try {
+                con.close();
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+            
+    } 
+
+    // update the campaign    
+    @Override
+    public boolean updateCampaign(String cID, String name, String description, String target, String budget,
+            String start_day, String start_month, String start_year,
+            String end_day, String end_month, String end_year, String objective) {
+        
+        String bID = null;
+        String stepNumber = null;
+        String partnerID = null;
+        String sellerID = null;
+        
+        String start_date = start_year + "-" + start_month + "-" + start_day; // Concatenate to a start date.
+        String end_date = end_year + "-" + end_month + "-" + end_day; // Concatenate to an end date.
+        
+        String sqlGetBudgetID = "SELECT budgetID AS \"budgetID\" "
+                + "FROM dell_campaigns " 
+                + "WHERE ID = " + cID; 
+        
+        String updateSQL = "UPDATE dell_campaigns SET "
+                + "name ='" + name + "', "
+                + "description ='" + description + "', "
+                + "start_date ='" + start_date + "', "
+                + "end_date ='" + end_date + "', "
+                + "target ='" + target + "', "
+                + "objectives ='" + objective + "' "
+                + "WHERE id =" + cID;
+        
+        try {
+            con = new Db().getConnection();
+            
+            statement = con.createStatement();
+            rs = statement.executeQuery(sqlGetBudgetID);
+            rs.next();
+            bID = rs.getString("budgetID");
+            System.out.println("Got budget ID: " + bID);
+            
+            if(updateBudget(bID, budget)) {
+                statement.executeUpdate(updateSQL);
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        
+        try {
+            con.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    } 
+
+    // approve a campaign
+    @Override
+    public boolean approveCampaignProject(String cID, String rank) {
+        
+        String partnerProjectSQL = "UPDATE dell_campaigns SET "
+                + "approve_partner_project = '1' "
+                + "WHERE id = " + cID;
+        String sellerProjectSQL = "UPDATE dell_campaigns SET "
+                + "approve_seller_project = '1' "
+                + "WHERE id = " + cID;
+        
+        String SQL = null;
+        
+        try {
+            con = new Db().getConnection();
+            
+            if(rank == "1") {
+                SQL = partnerProjectSQL;
+            } else {
+                SQL = sellerProjectSQL;
+            }
+            statement = con.createStatement();
+            statement.executeUpdate(SQL);
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        
+        try {
+            con.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    } 
+    
+    // approve POE
+    @Override
+    public boolean approveCampaignPOE(String cID, String rank) {
+        String partnerPoeSQL = "UPDATE dell_campaigns SET "
+                + "approve_partner_POE = '1' "
+                + "WHERE id = " + cID;
+        String sellerPoeSQL = "UPDATE dell_campaigns SET "
+                + "approve_seller_POE = '1' "
+                + "WHERE id = " + cID;
+        
+        String SQL = null;
+        
+        try {
+            con = new Db().getConnection();
+            
+            if(rank == "1") {
+                SQL = partnerPoeSQL;
+            } else {
+                SQL = sellerPoeSQL;
+            }
+            statement = con.createStatement();
+            statement.executeUpdate(SQL);
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        
+        try {
+            con.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    } 
+      
+    // upload File
+    @Override
+    public boolean uploadFile(String cID, String partnerID, String name, String type) {
+        
+        String url = "/Library/Uploads/" + partnerID + "/" + cID + "/" + type + "/"; // Define the URL for the file
+        
+        String sql = "INSERT INTO dell_files"
+                + "(id, name, poe_url, campaignID)"
+                + "VALUES (seq_POE.NEXTVAL, '" + name + "', '" + url + "', '" + cID + "')";
+        
+        try {
+            con = new Db().getConnection();
+            
+            statement = con.createStatement();
+            statement.addBatch(sql);
+            statement.executeBatch();
+            
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        
+        try {
+            con.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    } 
 
     @Override
-    public boolean getAllBudgets() {
+    public Map<String, AdminDashboardLine> getAdminDashboardLines() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean getAllPOEs() {
+    public Map<String, Budget> getBudgets() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean getAllUsers() {
+    public Map<String, Campaign> getCampaigns() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public Map<String, PartnerDashboardLine> getPartnerDashboardLines() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Map<String, POE> getPoes() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Map<String, SellerDashboardLine> getSellerDashboardLines() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Map<String, User> getUsers() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 
 }

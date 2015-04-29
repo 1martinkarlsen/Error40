@@ -82,7 +82,7 @@ public class Test {
         System.out.println("seller dashboard view partners:");
         System.out.println("-------------------------------");
 
-        dm.fillAllSellerDashboardLines();
+        dm.getAllSellerDashboardLines();
 
         for (Map.Entry<String, SellerDashboardLine> entry : dm.getSellerDashboardLines().entrySet()) {
             value2 = entry.getValue();

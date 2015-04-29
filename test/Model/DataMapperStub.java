@@ -8,6 +8,7 @@ package Model;
 import Interfaces.DataMapperInterface;
 import Model.users.User;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -15,57 +16,7 @@ import java.util.HashMap;
  */
 public class DataMapperStub implements DataMapperInterface {
 
-    @Override
-    public boolean fillAllAdminDashboardLines() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean fillAllCampaigns() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean fillAllPartnerDashboardLines() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public int fillAllSellerDashboardLinesCount = 0;
-    @Override
-    public boolean fillAllSellerDashboardLines() {
-        fillAllSellerDashboardLinesCount++;
-        return true;
-    }
-
-    @Override
-    public boolean fillPartnerDashboardLines(int partnerID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean fillSellerDashboardLines(int sellerID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public HashMap<String, AdminDashboardLine> getAdminDashboardLines() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean getAllBudgets() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean getAllPOEs() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean getAllUsers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     @Override
     public HashMap<String, Budget> getBudgets() {
@@ -112,24 +63,79 @@ public class DataMapperStub implements DataMapperInterface {
 
     
     public int resetListsCount = 0;
-    @Override
-    public void resetLists() {
-        resetListsCount++;
-        
-    }
 
     @Override
-    public boolean fillAllUsers() {
+    public Map<String, AdminDashboardLine> getAllAdminDashboardLines() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean fillAllBudgets() {
+    public Map<String, Campaign> getAllCampaigns() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean fillAllPOEs() {
+    public Map<String, PartnerDashboardLine> getAllPartnerDashboardLines() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Map<String, SellerDashboardLine> getAllSellerDashboardLines() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean fillPartnerDashboardLines(int partnerID, Map<String, PartnerDashboardLine> partnerDashboardLines) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean fillSellerDashboardLines(int sellerID, Map<String, SellerDashboardLine> sellerDashboardLines) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Map<String, AdminDashboardLine> getAdminDashboardLines() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Map<String, User> getAllUsers() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Map<String, Budget> getAllBudgets() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Map<String, POE> getAllPOEs() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean createCampaign(String name, String description, String target, String budget, String start_day, String start_month, String start_year, String end_day, String end_month, String end_year, String objective, String partnerID, String sellerID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean updateCampaign(String cID, String name, String description, String target, String budget, String start_day, String start_month, String start_year, String end_day, String end_month, String end_year, String objective) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean approveCampaignProject(String cID, String rank) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean approveCampaignPOE(String cID, String rank) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean uploadFile(String cID, String partnerID, String name, String type) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

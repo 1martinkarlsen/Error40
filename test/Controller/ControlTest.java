@@ -30,7 +30,7 @@ public class ControlTest {
         Map<String, SellerDashboardLine> lines = control.getSellerDashboardLines();
         
         assertThat(mapper.resetListsCount, is(1));
-        assertThat(mapper.fillAllSellerDashboardLinesCount, is(1));
+        assertThat(mapper.getAllSellerDashboardLines(), is(1));
         assertThat(mapper.getSellerDashboardLinesCount, is(1));
         
         assertThat(lines.size(), is(1));
