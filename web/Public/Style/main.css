@@ -1,0 +1,279 @@
+@import url(http://fonts.googleapis.com/css?family=Pathway+Gothic+One);
+
+@font-face {
+font-family: days;
+src: url('../../Library/Fonts/Days.otf') format("opentype");
+}
+
+@font-face {
+font-family: BebasNeue;
+src: url('../../Library/Fonts/BebasNeue.otf') format("opentype");
+}
+
+@font-face {
+font-family: Coda;
+src: url('../../Library/Fonts/Coda-Heavy.ttf') format("opentype");
+}
+
+@font-face {
+font-family: Comfortaa-Bold;
+src: url('../../Library/Fonts/Comfortaa_Bold.ttf') format("opentype");
+}
+
+@font-face {
+font-family: Comfortaa;
+src: url('../../Library/Fonts/Comfortaa_Regular.ttf') format("opentype");
+}
+
+@font-face {
+font-family: Comfortaa-Thin;
+src: url('../../Library/Fonts/Comfortaa_Thin.ttf') format("opentype");
+}
+
+@font-face {
+font-family: Ebrima;
+src: url('../../Library/Fonts/ebrima.ttf') format("opentype");
+}
+
+@font-face {
+font-family: EbrimaBd;
+src: url('../../Library/Fonts/ebrimabd.ttf') format("opentype");
+}
+
+@font-face {
+font-family: Helvetica93;
+src: url('../../Library/Fonts/Helvetica 93 Black Extended.ttf') format("opentype");
+}
+
+@font-face {
+font-family: Junegull;
+src: url('../../Library/Fonts/junegull.ttf') format("opentype");
+}
+
+@font-face {
+font-family: Ubuntu;
+src: url('../../Library/Fonts/Ubuntu-Title.ttf') format("opentype");
+}
+
+@font-face {
+font-family: Museo100;
+src: url('../../Library/Fonts/Museo100-Regular.otf') format("opentype");
+}
+
+@font-face {
+font-family: Museo300;
+src: url('../../Library/Fonts/Museo300-Regular.otf') format("opentype");
+}
+
+@font-face {
+font-family: Museo500;
+src: url('../../Library/Fonts/Museo500-Regular.otf') format("opentype");
+}
+
+@font-face {
+font-family: Museo700;
+src: url('../../Library/Fonts/Museo700-Regular.otf') format("opentype");
+}
+
+@font-face {
+font-family: Museo900;
+src: url('../../Library/Fonts/Museo900-Regular.otf') format("opentype");
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+.LoginContainer {
+    width: 100%;
+    overflow: hidden;
+}
+#login_logo {
+    width: 400px;
+    padding-top: 20px;
+    text-align: center;
+    margin: 0 auto;
+}
+.loginForm {
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 100px;
+    border-left: solid 5px #fff;
+    border-right: solid 5px #fff;
+    border-bottom: solid 1px #0085c3;
+    box-shadow: 0 8px 10px -10px #0085c3;
+}
+.loginForm form {
+    width: 180px;
+    margin: auto;
+    margin-top: 80px;
+    margin-bottom: 30px;
+}
+.loginForm input {
+    display: block;
+    margin-bottom: 10px;
+}
+.loginForm .inputText {
+    width: 180px;
+    height: 30px;
+    padding-left: 8px;
+    
+    line-height: 30px;
+    font-family: Arial;
+    font-size: 16px;
+    
+    border: solid 1px #999999;
+    border-radius: 5px;
+    background-color: #cccccc;
+}
+.loginForm #inputSubmit {
+    width: 80px;
+    height: 30px;
+    
+    line-height: 25px;
+    font-family: Arial;
+    font-size: 16px;
+    color: #666666;
+    
+    border: solid 1px #999999;
+    border-radius: 5px;
+    background-color: #cccccc;
+}
+.loginForm #inputSubmit:hover {
+    color: #666666;
+    background-color: #33a0e1;
+}
+.container {
+    width: 80%;
+    border-left: solid 1px #0085c3;
+    border-right: solid 1px #0085c3;
+    border-bottom: solid 1px #0085c3;
+    margin: auto;
+    overflow: hidden;
+}
+header {
+    width: 100%;
+    height: 130px;
+    overflow: hidden;
+}
+.header_floats {
+    float:left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.logo {
+    width: 20%;
+    padding-left: 5%;
+    
+    color: #0085c3;
+    font-family: Arial;
+    font-size: 36px;
+    font-weight: bold;
+    text-decoration: none;
+}
+#logoImg {
+    width: 80px;
+    height: 80px;
+}
+.nav {
+    width: 50%;
+    height: 89px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+.nav ul {
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 0;
+    text-align: center;
+}
+.nav ul li {
+    display: inline;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+.nav ul li:hover {
+    text-decoration: underline;
+}
+.nav ul li a {
+    color: #0085c3;
+    font-family: 'Pathway Gothic One', Museo500;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.login_logout {
+    width: 25%;
+    height: 89px;
+    overflow: hidden;
+}
+#username {
+    float: right;
+    margin: 0;
+    margin-top: 30px;
+    margin-right: 5px;
+    padding: 0;
+    
+    color: #0085c3;
+    font-family: Museo500;
+    font-size: 18px;
+    text-decoration: none;
+}
+#userImg {
+    width: 22px;
+    height: 22px;
+    float: right;
+    margin: 0;
+    margin-top: 30px;
+    margin-right: 20px;
+    padding: 0;
+}
+#logout {
+    float: right;
+    margin-right: 20px;
+    margin-top: 30px;
+    
+    color: #0085c3;
+    font-family: Museo500;
+    font-size: 18px;
+    text-decoration: none;
+}
+#logout:hover {
+    text-decoration: underline;
+}
+
+.quarterList {
+    width: 100%;
+    margin-top: 50px;
+    overflow: hidden;
+}
+.quarterList ul {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.quarterList ul li {
+    width: 200px;
+    height: 80px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: inline-block;
+    
+    background-color: #0085c3;
+    color: #fff;
+    font-family: Museo500;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 80px;
+    
+    border: solid 1px #333333;
+    border-radius: 8px;
+}
+.active {
+    box-shadow: inset 0 0 20px #333333;
+}

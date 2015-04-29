@@ -1,0 +1,58 @@
+.dashboard {
+    width: 80%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+/* Dashboard header */
+.dash_header {
+    width: 100%;
+}
+.dash_table {
+    width: 20%;
+    margin-left: 30px;
+    display: table;
+    
+    font-family: Arial;
+    font-size: 14px;
+}
+.dash_table-row {
+    display: table-row;
+}
+.dash_table-cell {
+    display: table-cell;
+}
+.dash_cell_h1 {
+    font-weight: bold;
+}
+.dashboard_headCells {
+    font-weight: bold;
+    font-family: Museo500;
+    font-size: 16px;
+}
+
+/* Dashboard Container */
+.dash_content {
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: solid 1px #0085c3;
+}
+.dashboard_table {
+    display: table;
+    
+    font-family: Museo500;
+    font-size: 14px;
+    border-collapse: collapse;
+}
+.dashboard_table_row {
+    width: 100%;
+    display: table-row;
+    border: solid 1px #0085c3;
+}
+.dashboard_table_cell {
+    display: table-cell;
+    border: solid 1px #0085c3;
+    padding-left: 10px;
+    padding-right: 5px;
+}

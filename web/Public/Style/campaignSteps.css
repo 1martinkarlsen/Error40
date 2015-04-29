@@ -1,0 +1,93 @@
+@import url(http://fonts.googleapis.com/css?family=Pathway+Gothic+One);
+
+.campaign {
+    width: 80%;
+    margin: 0 auto;
+}
+.campaign_partnerTitle {
+    font-family: 'Pathway Gothic One', Arial;
+    font-size: 24px;
+    text-decoration: none;
+    color: #000;
+}
+.campaign_stepsList {
+    overflow: hidden;
+}
+.campaign_stepsList ul {
+    padding: 0;
+    text-align: center;
+}
+.campaign_stepsList ul li {
+    display: inline-block;
+    height: 102px;
+    overflow: hidden;
+}
+.campaign_stepsList ul li a {
+    font-family: 'Pathway Gothic One', Arial;
+    font-size: 36px;
+    text-decoration: none;
+    color: #fff;
+}
+.campaign_step {
+    width: 200px;
+    height: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
+    line-height: 95px;
+    background-color: #0085c3;
+    border: solid 1px #000;
+    border-radius: 10px;
+    
+    font-family: 'Pathway Gothic One', Arial;
+    font-size: 36px;
+    text-decoration: none;
+    color: #fff;
+}
+.campaign_check {
+    width: 40px;
+    height: 40px;
+    margin-top: 30px;
+    background-color: #0085c3;
+    border: solid 1px #000;
+    border-radius: 50px;
+    
+}
+
+
+// Step 1
+.step1 {
+    width: 100%;
+}
+
+// Step 2
+.step2 {
+    width: 100%;
+}
+.poeItemList {
+    
+}
+.poeItemList li {
+    font-family: Arial;
+    font-size: 18px;
+}
+
+// Step 3
+.step3 {
+    width: 100%;
+}
+.step3_table {
+    width: 60%;
+    margin: 0 auto;
+    display: table;
+    
+    font-family: "Pathway Gothic One", Arial;
+    font-size: 18px;
+}
+.step3_row {
+    width: 100%;
+    height: 30px;
+    display: table-row;
+}
+.step3_cell {
+    display: table-cell;
+}
