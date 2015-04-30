@@ -17,8 +17,6 @@ import Model.POE;
 import Model.PartnerDashboardLine;
 import Model.SellerDashboardLine;
 import Model.users.User;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,8 +29,17 @@ public class Control implements ControlIF {
     private AuthentificationIF au;
     
     private String rank = null;
-    private User u = null;
+    private User user = null;
     private String id = null;
+
+    
+    
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
 
     public Control() {
         dm = new DataMapper();
@@ -45,15 +52,15 @@ public class Control implements ControlIF {
     }
     
     public void logout() {
-        u = null;
+        user = null;
         id = null;
         //dm.resetLists();
     }
 
     public boolean login(String username, String password) {
-        u = au.validate(username, password);
+        user = au.validate(username, password);
         
-        return u != null;
+        return user != null;
     }
 
     public Map<Integer, AdminDashboardLine> getAdminDashboardLines() {
@@ -71,15 +78,15 @@ public class Control implements ControlIF {
     }
 
     public int getUserRank() {
-        return u.getRank();
+        return user.getRank();
     }
 
     public User getUser() {
-        return u;
+        return user;
     }
 
     public int getUserID() {
-        return u.getId();
+        return user.getId();
     }
     
     public Map<Integer, Campaign> getCampaign() {
@@ -96,5 +103,15 @@ public class Control implements ControlIF {
     
     public Map<Integer, User> getUsers() {
         return dm.getAllUsers();
+    }
+
+    @Override
+    public String getID() {
+        return id;
+    }
+
+    @Override
+    public void setID(String id) {
+        this.id = id;
     }
 }

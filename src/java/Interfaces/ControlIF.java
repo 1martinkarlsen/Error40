@@ -28,9 +28,15 @@ public interface ControlIF {
     public Map<Integer, SellerDashboardLine> getSellerDashboardLines();
     public Map<Integer, PartnerDashboardLine> getPartnerDashboardLines();
     
+    // used for testing primarely
+    public String getID();
+    public void setID(String id);
+    //
+            
     public int getUserRank();
     public int getUserID();
     public User getUser();
+    public void setUser(User user);
     public Map<Integer, Campaign> getCampaign();
     public Map<Integer, POE> getPOEs();
     public Map<Integer, Budget> getBudget();
