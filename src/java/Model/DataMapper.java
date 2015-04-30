@@ -103,23 +103,18 @@ public class DataMapper implements DataMapperIF {
             while (rs.next()) {
 
                 String sDate = rs.getDate("start_date").toString();
-                //System.out.println(sDate);
                 String[] aSDate = sDate.split("-");
 
-                String start_day = aSDate[2];
-                String start_month = aSDate[1];
-                String start_year = aSDate[0];
-
-                //System.out.println("Day: " + start_day);
-                //System.out.println("Month: " + start_month);
-                //System.out.println("Year: " + start_year);
+                int start_day = Integer.parseInt(aSDate[2]);
+                int start_month = Integer.parseInt(aSDate[1]);
+                int start_year = Integer.parseInt(aSDate[0]);
 
                 String eDate = rs.getDate("end_date").toString();
                 String[] eSDate = eDate.split("-");
 
-                String end_day = eSDate[2];
-                String end_month = eSDate[1];
-                String end_year = eSDate[0];
+                int end_day = Integer.parseInt(eSDate[2]);
+                int end_month = Integer.parseInt(eSDate[1]);
+                int end_year = Integer.parseInt(eSDate[0]);
 
                 campaigns.put(rs.getInt("id"), new Campaign(rs.getInt("id"), rs.getString("name"), rs.getInt("stepNumber"), rs.getString("description"), 
                     start_day, start_month, start_year, 
@@ -681,7 +676,9 @@ public class DataMapper implements DataMapperIF {
                 + "start_date ='" + start_date + "', "
                 + "end_date ='" + end_date + "', "
                 + "target ='" + target + "', "
-                + "objectives ='" + objective + "' "
+                + "objectives ='" + objective + "', "
+                + "approve_seller_project ='0', "
+                + "approve_partner_project = '0' "
                 + "WHERE id =" + cID;
         
         try {
@@ -691,7 +688,6 @@ public class DataMapper implements DataMapperIF {
             rs = statement.executeQuery(sqlGetBudgetID);
             rs.next();
             bID = Integer.parseInt(rs.getString("budgetID"));
-            //System.out.println("Got budget ID: " + bID);
             
             if(updateBudget(bID, budget)) {
                 statement.executeUpdate(updateSQL);
@@ -710,15 +706,50 @@ public class DataMapper implements DataMapperIF {
         }
     } 
 
+    // Change stepNumber for campaign
+    @Override
+    public boolean changeCampaignStep(int cID, int stepNumber) {
+        
+        String getStepNumber = "SELECT stepNumber AS \"stepNumber\" "
+                + "FROM dell_campaigns "
+                + "WHERE id=" + cID;
+        
+        String sql = "UPDATE dell_campaigns SET "
+                + "stepNumber='" + stepNumber + "' "
+                + "WHERE id='" + cID + "' ";
+        
+        try {
+            con = new Db().getConnection();
+            
+            statement = con.createStatement();
+            rs = statement.executeQuery(getStepNumber);
+            rs.next();
+            stepNumber = rs.getInt("stepNumber");
+            statement.executeUpdate(sql);
+            System.out.println(sql);
+            
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        }
+    }
+    
     // approve a campaign
     @Override
-    public boolean approveCampaignProject(String cID, String rank) {
+    public boolean approveCampaignProject(int cID, int rank, int choice) {
         
         String partnerProjectSQL = "UPDATE dell_campaigns SET "
-                + "approve_partner_project = '1' "
+                + "approve_partner_project = '" + choice + "' "
                 + "WHERE id = " + cID;
         String sellerProjectSQL = "UPDATE dell_campaigns SET "
-                + "approve_seller_project = '1' "
+                + "approve_seller_project = '" + choice + "' "
                 + "WHERE id = " + cID;
         
         String SQL = null;
@@ -726,7 +757,7 @@ public class DataMapper implements DataMapperIF {
         try {
             con = new Db().getConnection();
             
-            if(rank == "1") {
+            if(rank == 1) {
                 SQL = partnerProjectSQL;
             } else {
                 SQL = sellerProjectSQL;
@@ -749,26 +780,16 @@ public class DataMapper implements DataMapperIF {
     
     // approve POE
     @Override
-    public boolean approveCampaignPOE(String cID, String rank) {
-        String partnerPoeSQL = "UPDATE dell_campaigns SET "
-                + "approve_partner_POE = '1' "
+    public boolean approveCampaignPOE(int cID, int choice) {
+        String sql = "UPDATE dell_campaigns SET "
+                + "approve_seller_POE = '" + choice + "' "
                 + "WHERE id = " + cID;
-        String sellerPoeSQL = "UPDATE dell_campaigns SET "
-                + "approve_seller_POE = '1' "
-                + "WHERE id = " + cID;
-        
-        String SQL = null;
         
         try {
             con = new Db().getConnection();
             
-            if(rank == "1") {
-                SQL = partnerPoeSQL;
-            } else {
-                SQL = sellerPoeSQL;
-            }
             statement = con.createStatement();
-            statement.executeUpdate(SQL);
+            statement.executeUpdate(sql);
             
             return true;
         } catch (Exception e) {

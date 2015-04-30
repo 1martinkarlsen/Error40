@@ -123,4 +123,33 @@ public class Control implements ControlIF {
         dm.updateCampaign(cID, name, description, target, budget, start_day, start_month, start_year, 
                 end_day, end_month, end_year, objective);
     }
+    
+    @Override
+    public void approveCampaignRequest(int cID, int rank, int choice) {
+        if(dm.approveCampaignProject(cID, rank, choice)) {
+            for(Map.Entry<Integer, Campaign> entry : dm.getAllCampaigns().entrySet()) {
+                if(entry.getKey() == cID) {
+                    if(entry.getValue().getApprove_partner_project() == 1 && entry.getValue().getApprove_seller_project() == 1) {
+                        dm.changeCampaignStep(cID, entry.getValue().getStepNumber());
+                    }
+                }
+            }
+        }
+    }
+    
+    @Override
+    public void approveCampaignPOE(int cID, int choice) {
+        if(dm.approveCampaignPOE(cID, choice)) {
+            System.out.println("Approve worked!");
+            for(Map.Entry<Integer, Campaign> entry : dm.getAllCampaigns().entrySet()) {
+                if(entry.getKey() == cID) {
+                    if(entry.getValue().getApprove_seller_POE() == 1) {
+                        int stepNumber = entry.getValue().getStepNumber();
+                        stepNumber++;
+                        dm.changeCampaignStep(cID, stepNumber);
+                    }
+                }
+            }
+        }
+    }
 }

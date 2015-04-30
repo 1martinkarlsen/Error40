@@ -44,4 +44,6 @@ public interface ControlIF {
     public void updateCampaign(int cID, String name, String description, String target, int budget,
             int start_day, int start_month, int start_year,
             int end_day, int end_month, int end_year, String objective);
+    public void approveCampaignRequest(int cID, int rank, int choice);
+    public void approveCampaignPOE(int cID, int choice);
 }

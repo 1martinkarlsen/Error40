@@ -141,13 +141,18 @@ public class Servlet extends HttpServlet {
                     
                 case "updateCampaign":
                     int cID = Integer.parseInt(request.getSession().getAttribute("cID").toString());
+                    System.out.println("cid: " + cID);
                     String name = request.getParameter("name");
                     String description = request.getParameter("description");
                     String target = request.getParameter("target");
                     int budget = Integer.parseInt(request.getParameter("budget"));
+                    System.out.println("budget: " + budget);
                     int start_day = Integer.parseInt(request.getParameter("start_day"));
+                    System.out.println("start_day: " + start_day);
                     int start_month = Integer.parseInt(request.getParameter("start_month"));
+                    System.out.println("start_month: " + start_month);
                     int start_year = Integer.parseInt(request.getParameter("start_year"));
+                    System.out.println("start_year: " + start_year);
                     int end_day = Integer.parseInt(request.getParameter("end_day"));
                     int end_month = Integer.parseInt(request.getParameter("end_month"));
                     int end_year = Integer.parseInt(request.getParameter("end_year"));
@@ -155,7 +160,28 @@ public class Servlet extends HttpServlet {
                     
                     control.updateCampaign(cID, name, description, target, budget, start_day, start_month, start_year, 
                             end_day, end_month, end_year, objectives);
-                    response.sendRedirect("index.jsp?show=campaign.jsp");
+                    
+                    response.sendRedirect("Servlet?origin=showSingleCampaign&cID=" + cID);
+                    return;
+                    
+                case "approveCampaignRequest":
+                    int userRank = control.getUserRank();
+                    int choice = Integer.parseInt(request.getParameter("choice"));
+                    cID = Integer.parseInt(request.getSession().getAttribute("cID").toString());
+                    
+                    control.approveCampaignRequest(cID, userRank, choice);
+                    
+                    response.sendRedirect("Servlet?origin=showSingleCampaign&cID=" + cID);
+                    return;
+                    
+                case "approveCampaignPOE":
+                    cID = Integer.parseInt(request.getSession().getAttribute("cID").toString());
+                    choice = Integer.parseInt(request.getParameter("choice"));
+                    
+                    control.approveCampaignPOE(cID, choice);
+                    
+                    response.sendRedirect("Servlet?origin=showSingleCampaign&cID=" + cID);
+                    
                     return;
             }
             /*

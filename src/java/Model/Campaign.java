@@ -19,12 +19,12 @@ public class Campaign {
     private String name;
     private int stepNumber; // process state number 1, 2 or 3
     private String description; // campaign details
-    private String start_day;
-    private String start_month;
-    private String start_year;
-    private String end_day;
-    private String end_month;
-    private String end_year;
+    private int start_day;
+    private int start_month;
+    private int start_year;
+    private int end_day;
+    private int end_month;
+    private int end_year;
     private String target;
     private String objective;
 
@@ -36,7 +36,7 @@ public class Campaign {
     private int sellerID;
     private int budgetID;
 
-    public Campaign(int Id, String name, int stepNumber, String description, String start_day, String start_month, String start_year, String end_day, String end_month, String end_year, String target, String objective, int approve_seller_project, int approve_partner_project, int approve_seller_POE, int partnerID, int sellerID, int budgetID) {
+    public Campaign(int Id, String name, int stepNumber, String description, int start_day, int start_month, int start_year, int end_day, int end_month, int end_year, String target, String objective, int approve_seller_project, int approve_partner_project, int approve_seller_POE, int partnerID, int sellerID, int budgetID) {
         this.Id = Id;
         this.name = name;
         this.stepNumber = stepNumber;
@@ -89,51 +89,51 @@ public class Campaign {
         this.description = description;
     }
 
-    public String getStart_day() {
+    public int getStart_day() {
         return start_day;
     }
 
-    public void setStart_day(String start_day) {
+    public void setStart_day(int start_day) {
         this.start_day = start_day;
     }
 
-    public String getStart_month() {
+    public int getStart_month() {
         return start_month;
     }
 
-    public void setStart_month(String start_month) {
+    public void setStart_month(int start_month) {
         this.start_month = start_month;
     }
 
-    public String getStart_year() {
+    public int getStart_year() {
         return start_year;
     }
 
-    public void setStart_year(String start_year) {
+    public void setStart_year(int start_year) {
         this.start_year = start_year;
     }
 
-    public String getEnd_day() {
+    public int getEnd_day() {
         return end_day;
     }
 
-    public void setEnd_day(String end_day) {
+    public void setEnd_day(int end_day) {
         this.end_day = end_day;
     }
 
-    public String getEnd_month() {
+    public int getEnd_month() {
         return end_month;
     }
 
-    public void setEnd_month(String end_month) {
+    public void setEnd_month(int end_month) {
         this.end_month = end_month;
     }
 
-    public String getEnd_year() {
+    public int getEnd_year() {
         return end_year;
     }
 
-    public void setEnd_year(String end_year) {
+    public void setEnd_year(int end_year) {
         this.end_year = end_year;
     }
 

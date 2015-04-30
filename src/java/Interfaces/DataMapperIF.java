@@ -74,8 +74,9 @@ public interface DataMapperIF {
             int start_day, int start_month, int start_year,
             int end_day, int end_month, int end_year,
             String objective);
-    public boolean approveCampaignProject(String cID, String rank);
-    public boolean approveCampaignPOE(String cID, String rank);
+    public boolean changeCampaignStep(int cID, int stepNumber);
+    public boolean approveCampaignProject(int cID, int rank, int choice);
+    public boolean approveCampaignPOE(int cID, int choice);
     public boolean uploadFile(String cID, String partnerID, String name, String type); // Huske at sørge for at den selv generere navnet: QxFYxx
     
     // Users (to be add'ed).
