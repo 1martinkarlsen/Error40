@@ -37,8 +37,12 @@
                     </div>
                         
                     <div class="step3_row">
+                        <c:forEach var="budget" items="${sessionScope.allBudget}">
+                            <c:if test="${budget.value['id'] == campaign.value['budgetID']}">
                         <div class="step3_cell"><b>Cost:</b></div>
-                        <div class="step3_cell"><c:out value="${campaign.value['budget']}" /></div>
+                        <div class="step3_cell"><c:out value="${budget.value['amount']}" /> $</div>
+                            </c:if>
+                        </c:forEach>
                     </div>
                     
                     <div class="step3_row">

@@ -2,12 +2,12 @@
 <section class="step1">
     <c:forEach var="campaign" items="${sessionScope.allCampaigns}">
         <c:if test="${sessionScope.cID == campaign.value['id']}">
-    <form action="#" method="post">
+    <form action="Servlet?origin=updateCampaign" method="post">
         <p>Title</p>
         <input type="text" name="name" value="<c:out value="${campaign.value['name']}" />" />
         
         <p>Description</p>
-        <input type="text" name="description" value="<c:out value="${campaign.value['description']}" />" />
+        <textarea id="description_textarea" name="description"><c:out value="${campaign.value['description']}" /></textarea>
         
         <p>Target</p>
         <input type="text" name="target" value="<c:out value="${campaign.value['target']}" />" />
@@ -20,7 +20,7 @@
         </c:forEach>
         
         <p>Start date</p>
-        <select name="start_date" id="start_date" value="<c:out value="${campaign.value['start_day']}" />">
+        <select name="start_date" id="start_day" value="<c:out value="${campaign.value['start_day']}" />">
             <option value="<c:out value="${campaign.value['start_day']}" />"><c:out value="${campaign.value['start_day']}" /></option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -56,7 +56,7 @@
             <option value="31">31</option>
         </select>
         
-        <select name="start_month">
+        <select name="start_month" id="start_month">
             <option value="<c:out value="${campaign.value['start_month']}" />"><c:out value="${campaign.value['start_month']}" /></option>
             <option value="1">January</option>
             <option value="2">February</option>
@@ -72,14 +72,15 @@
             <option value="12">December</option>
         </select>
         
-        <select name="start_year">
+        <select name="start_year" id="start_year">
             <option value="<c:out value="${campaign.value['start_year']}" />"><c:out value="${campaign.value['start_year']}" /></option>
             <option value="2015">2015</option>
             <option value="2016">2016</option>
         </select>
         
         <p>End date</p>
-        <select name="end_date">
+        <c:set var="end_day" value="${campaign.value['end_day']}" />
+        <select name="end_date" id="end_day">
             <option value="<c:out value="${campaign.value['end_day']}" />"><c:out value="${campaign.value['end_day']}" /></option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -88,7 +89,6 @@
             <option value="5">5</option>
             <option value="6">6</option>
             <option value="7">7</option>
-            <option value="8">8</option>
             <option value="8">8</option>
             <option value="9">9</option>
             <option value="10">10</option>
@@ -115,7 +115,7 @@
             <option value="31">31</option>
         </select>
         
-        <select name="end_month">
+        <select name="end_month" id="end_month">
             <option value="<c:out value="${campaign.value['end_month']}" />"><c:out value="${campaign.value['end_month']}" /></option>
             <option value="1">January</option>
             <option value="2">February</option>
@@ -131,7 +131,7 @@
             <option value="12">December</option>
         </select>
         
-        <select name="end_year">
+        <select name="end_year" id="end_year">
             <option value="<c:out value="${campaign.value['end_year']}" />"><c:out value="${campaign.value['end_year']}" /></option>
             <option value="2015">2015</option>
             <option value="2016">2016</option>
@@ -140,20 +140,33 @@
         <p>Objectives/Results</p>
         <input type="text" name="objectives" value="<c:out value="${campaign.value['objective']}" />" />
         
-        <input type="submit" value="Update" />
+        <input type="submit" value="Update" id="updateButton" />
         <input type="hidden" name="hiddenUpdate" />
     </form>
         </c:if>
     </c:forEach>
     
-    <c:if test="${sessionScope.user.rank >= 2 && sessionScope.user.id == campaign.value['sellerID']}">
-        <a href="index.jsp?show=campaign.jsp?cID=${campaign.value['id']}&step=step2.jsp">Approve</a>
-        <a href="#">Decline</a>
-    </c:if>
-        
-    <c:if test="${sessionScope.user.rank == 1 && sessionScope.user.id == campaign.value['partnerID']}">
-        <a href="index.jsp?show=campaign.jsp?cID=${campaign.value['id']}&step=step2.jsp">Approve</a>
-        <a href="#">Decline</a>
-    </c:if>
+    <div class="checkedApprove">
+        <div class="checkedSeller">
+            <img src="Public/images/User.png" id="imgSeller">
+            <p>Seller</p>
+        </div>
+        <div class="checkedPartner">
+            <img src="Public/images/User.png" id="imgPartner">
+            <p>Partner</p>
+        </div>
+    </div>
+    
+    <div id="approve_buttons">
+        <c:if test="${sessionScope.user.rank >= 2}">
+            <div class="but_approve"><a href="index.jsp?show=campaign.jsp?cID=${campaign.value['id']}&step=step2.jsp">Approve</a></div>
+            <div class="but_decline"><a href="#">Decline</a></div>
+        </c:if>
+
+        <c:if test="${sessionScope.user.rank == 1}">
+            <div class="but_approve"><a href="index.jsp?show=campaign.jsp?cID=${campaign.value['id']}&step=step2.jsp">Approve</a></div>
+            <div class="but_decline"><a href="#">Decline</a></div>
+        </c:if>
+    </div>
     
 </section>

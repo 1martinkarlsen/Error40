@@ -52,11 +52,12 @@ public class DataMapper implements DataMapperIF {
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }
-
-        try {
-            con.close();
-        } catch (Exception e) {
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
         }
         return users;
     }
@@ -79,11 +80,12 @@ public class DataMapper implements DataMapperIF {
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }
-
-        try {
-            con.close();
-        } catch (Exception e) {
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
         }
         return budgets;
     }
@@ -130,11 +132,12 @@ public class DataMapper implements DataMapperIF {
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }
-
-        try {
-            con.close();
-        } catch (Exception e) {
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
         }
         return campaigns;
     }
@@ -157,11 +160,12 @@ public class DataMapper implements DataMapperIF {
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }
-
-        try {
-            con.close();
-        } catch (Exception e) {
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
         }
         return poes;
     }
@@ -260,12 +264,13 @@ public class DataMapper implements DataMapperIF {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
             return null;
             //return false;
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
         }
-
-//        try {
-//            con.close();
-//        } catch (Exception e) {
-//        }
         //return true;
         return adl;
     }
@@ -297,12 +302,12 @@ public class DataMapper implements DataMapperIF {
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }
-        
-        try {
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
         }
         return adminDashboardLines;
     }
@@ -465,17 +470,16 @@ public class DataMapper implements DataMapperIF {
             for (Integer i : ids) {
                 fillSellerDashboardLines(i, sellerDashboardLines);
             }
-            
+            return sellerDashboardLines;
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }
-
-        try {
-            con.close();
-            return sellerDashboardLines;
-        } catch (Exception e) {
-            return null;
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
         }
     }
     
@@ -545,18 +549,18 @@ public class DataMapper implements DataMapperIF {
             for (Integer i : ids) {
                 fillPartnerDashboardLines(i, partnerDashboardLines);
             }
-
+            
+            return partnerDashboardLines;
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
         }
-        
-        try {
-            con.close();
-        } catch (Exception e) {
-        }
-
-        return partnerDashboardLines;
     }
     
     
@@ -586,7 +590,7 @@ public class DataMapper implements DataMapperIF {
     }; 
     
     // updates a budget 
-    private boolean updateBudget(String bID, String value) {
+    private boolean updateBudget(int bID, int value) {
         String sql = "UPDATE dell_budget SET value=" + value + ""
                 + "WHERE id=" + bID;
         
@@ -639,30 +643,30 @@ public class DataMapper implements DataMapperIF {
                 if(bID != null) {
                     uploadFile(cID, partnerID, name, "poe");
                 } 
+                
+                return true;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 return false;
+            } finally {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.getMessage();
+                }
             }
-            
-            try {
-                con.close();
-                return true;
-            } catch (Exception e) {
-                return false;
-            }
-            
     } 
 
     // update the campaign    
     @Override
-    public boolean updateCampaign(String cID, String name, String description, String target, String budget,
-            String start_day, String start_month, String start_year,
-            String end_day, String end_month, String end_year, String objective) {
+    public boolean updateCampaign(int cID, String name, String description, String target, int budget,
+            int start_day, int start_month, int start_year,
+            int end_day, int end_month, int end_year, String objective) {
         
-        String bID = null;
-        String stepNumber = null;
-        String partnerID = null;
-        String sellerID = null;
+        int bID;
+        int stepNumber;
+        int partnerID;
+        int sellerID;
         
         String start_date = start_year + "-" + start_month + "-" + start_day; // Concatenate to a start date.
         String end_date = end_year + "-" + end_month + "-" + end_day; // Concatenate to an end date.
@@ -686,23 +690,23 @@ public class DataMapper implements DataMapperIF {
             statement = con.createStatement();
             rs = statement.executeQuery(sqlGetBudgetID);
             rs.next();
-            bID = rs.getString("budgetID");
+            bID = Integer.parseInt(rs.getString("budgetID"));
             //System.out.println("Got budget ID: " + bID);
             
             if(updateBudget(bID, budget)) {
                 statement.executeUpdate(updateSQL);
             }
             
+            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
-        }
-        
-        try {
-            con.close();
-            return true;
-        } catch (Exception e) {
-            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
         }
     } 
 
@@ -730,16 +734,16 @@ public class DataMapper implements DataMapperIF {
             statement = con.createStatement();
             statement.executeUpdate(SQL);
             
+            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
-        }
-        
-        try {
-            con.close();
-            return true;
-        } catch (Exception e) {
-            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
         }
     } 
     
@@ -766,16 +770,16 @@ public class DataMapper implements DataMapperIF {
             statement = con.createStatement();
             statement.executeUpdate(SQL);
             
+            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
-        }
-        
-        try {
-            con.close();
-            return true;
-        } catch (Exception e) {
-            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
         }
     } 
       
@@ -796,17 +800,16 @@ public class DataMapper implements DataMapperIF {
             statement.addBatch(sql);
             statement.executeBatch();
             
-            
+            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
-        }
-        
-        try {
-            con.close();
-            return true;
-        } catch (Exception e) {
-            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
         }
     } 
 

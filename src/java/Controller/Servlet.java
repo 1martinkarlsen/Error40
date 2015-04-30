@@ -138,7 +138,25 @@ public class Servlet extends HttpServlet {
                     request.getSession().setAttribute("cID", id);
                     response.sendRedirect("index.jsp?show=campaign.jsp");
                     return;
-
+                    
+                case "updateCampaign":
+                    int cID = Integer.parseInt(request.getSession().getAttribute("cID").toString());
+                    String name = request.getParameter("name");
+                    String description = request.getParameter("description");
+                    String target = request.getParameter("target");
+                    int budget = Integer.parseInt(request.getParameter("budget"));
+                    int start_day = Integer.parseInt(request.getParameter("start_day"));
+                    int start_month = Integer.parseInt(request.getParameter("start_month"));
+                    int start_year = Integer.parseInt(request.getParameter("start_year"));
+                    int end_day = Integer.parseInt(request.getParameter("end_day"));
+                    int end_month = Integer.parseInt(request.getParameter("end_month"));
+                    int end_year = Integer.parseInt(request.getParameter("end_year"));
+                    String objectives = request.getParameter("objectives");
+                    
+                    control.updateCampaign(cID, name, description, target, budget, start_day, start_month, start_year, 
+                            end_day, end_month, end_year, objectives);
+                    response.sendRedirect("index.jsp?show=campaign.jsp");
+                    return;
             }
             /*
              // Fill in a list of all users from the dell_users table in the database.

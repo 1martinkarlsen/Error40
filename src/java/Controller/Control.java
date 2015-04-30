@@ -114,4 +114,13 @@ public class Control implements ControlIF {
     public void setID(String id) {
         this.id = id;
     }
+    
+    @Override
+    public void updateCampaign(int cID, String name, String description, String target, int budget,
+            int start_day, int start_month, int start_year,
+            int end_day, int end_month, int end_year, String objective) {
+        
+        dm.updateCampaign(cID, name, description, target, budget, start_day, start_month, start_year, 
+                end_day, end_month, end_year, objective);
+    }
 }

@@ -19,7 +19,7 @@
 }
 .campaign_stepsList ul li {
     display: inline-block;
-    height: 102px;
+    height: 104px;
     overflow: hidden;
 }
 .campaign_stepsList ul li a {
@@ -34,8 +34,8 @@
     margin-left: 10px;
     margin-right: 10px;
     line-height: 95px;
-    background-color: #0085c3;
-    border: solid 1px #000;
+    background-color: #0e9ddf;
+    border: solid 2px #0085c3;
     border-radius: 10px;
     
     font-family: 'Pathway Gothic One', Arial;
@@ -47,8 +47,8 @@
     width: 40px;
     height: 40px;
     margin-top: 30px;
-    background-color: #0085c3;
-    border: solid 1px #000;
+    background-color: #0e9ddf;
+    border: solid 2px #0085c3;
     border-radius: 50px;
     
 }
@@ -57,6 +57,153 @@
 // Step 1
 .step1 {
     width: 100%;
+}
+.step1 p {
+    font-family: Arial;
+    font-size: 18px;
+}
+.step1 form {
+    width: 350px;
+    margin: 0 auto;
+}
+.step1 form input {
+    width: 340px;
+    height: 40px;
+    padding-left: 10px;
+    
+    font-family: Arial;
+    font-size: 16px;
+    
+    border: solid 1px #0085c3;
+    border-radius: 5px;
+}
+#description_textarea {
+    width: 340px;
+    height: 150px;
+    padding-left: 10px;
+    padding-top: 10px;
+    
+    font-family: Arial;
+    font-size: 16px;
+    resize: none;
+    
+    border: solid 1px #0085c3;
+    border-radius: 5px;
+}
+#start_day {
+    width: 95px;
+    height: 40px;
+    padding-left: 10px;
+    border: solid 1px #0085c3;
+    border-radius: 5px;
+}
+#start_month {
+    width: 150px;
+    height: 40px;
+    padding-left: 10px;
+    border: solid 1px #0085c3;
+    border-radius: 5px;
+}
+#start_year {
+    width: 95px;
+    height: 40px;
+    padding-left: 10px;
+    border: solid 1px #0085c3;
+    border-radius: 5px;
+}
+#end_day {
+    width: 95px;
+    height: 40px;
+    padding-left: 10px;
+    border: solid 1px #0085c3;
+    border-radius: 5px;
+}
+#end_month {
+    width: 150px;
+    height: 40px;
+    padding-left: 10px;
+    border: solid 1px #0085c3;
+    border-radius: 5px;
+}
+#end_year {
+    width: 95px;
+    height: 40px;
+    padding-left: 10px;
+    border: solid 1px #0085c3;
+    border-radius: 5px;
+}
+#updateButton {
+    width: 350px;
+    height: 40px;
+    margin-top: 20px;
+    
+    font-family: Arial;
+    font-size: 18px;
+    color: #0085c3;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#approve_buttons {
+    width: 350px;
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.but_approve {
+    width: 165px;
+    height: 40px;
+    float: left;
+    background-color: #0e9ddf;
+    border: solid 1px #0085c3;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 40px;
+}
+.but_approve a {
+    font-family: Arial;
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+}
+.but_decline {
+    width: 165px;
+    height: 40px;
+    float: left;
+    margin-left: 16px;
+    background-color: #0e9ddf;
+    border: solid 1px #0085c3;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 40px;
+}
+.but_decline a {
+    font-family: Arial;
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.checkedApprove {
+    width: 350px;
+    margin: 0 auto;
+    margin-top: 20px;
+    overflow: hidden;
+}
+.checkedSeller {
+    width: 175px;
+    text-align: center;
+    float: left;
+}
+.checkedPartner {
+    width: 175px;
+    text-align: center;
+    float: left;
+}
+#imgSeller {
+}
+#imgPartner {
 }
 
 // Step 2

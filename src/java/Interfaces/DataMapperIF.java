@@ -70,9 +70,9 @@ public interface DataMapperIF {
             String start_day, String start_month, String start_year,
             String end_day, String end_month, String end_year,
             String objective, String partnerID, String sellerID);
-    public boolean updateCampaign(String cID, String name, String description, String target, String budget, 
-            String start_day, String start_month, String start_year,
-            String end_day, String end_month, String end_year,
+    public boolean updateCampaign(int cID, String name, String description, String target, int budget, 
+            int start_day, int start_month, int start_year,
+            int end_day, int end_month, int end_year,
             String objective);
     public boolean approveCampaignProject(String cID, String rank);
     public boolean approveCampaignPOE(String cID, String rank);

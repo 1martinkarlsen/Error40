@@ -41,4 +41,7 @@ public interface ControlIF {
     public Map<Integer, POE> getPOEs();
     public Map<Integer, Budget> getBudget();
     public Map<Integer, User> getUsers();
+    public void updateCampaign(int cID, String name, String description, String target, int budget,
+            int start_day, int start_month, int start_year,
+            int end_day, int end_month, int end_year, String objective);
 }

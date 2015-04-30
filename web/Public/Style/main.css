@@ -149,6 +149,7 @@ body {
     border-right: solid 1px #0085c3;
     border-bottom: solid 1px #0085c3;
     margin: auto;
+    margin-bottom: 20px;
     overflow: hidden;
 }
 header {
