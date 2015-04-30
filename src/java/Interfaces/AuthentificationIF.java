@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Interfaces;
 
 import Model.users.User;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Rasmus
  */
-public interface AuthentificationInterface {
+public interface AuthentificationIF {
 
     List<User> getUsers();
 

@@ -1,6 +1,6 @@
 package Model;
 
-import Interfaces.DataMapperInterface;
+import Interfaces.DataMapperIF;
 import Model.users.User;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Rasmus
  */
-public class DataMapper implements DataMapperInterface {
+public class DataMapper implements DataMapperIF {
 
 //    Map<String, User> users = new HashMap(); // Liste over alle users.
 //    Map<String, Campaign> campaigns = new HashMap(); // Liste over alle kampagner.
@@ -36,8 +36,8 @@ public class DataMapper implements DataMapperInterface {
 
     
     @Override
-    public Map<String, User>  getAllUsers() {
-        Map<String, User> users = new HashMap();
+    public Map<Integer, User>  getAllUsers() {
+        Map<Integer, User> users = new HashMap();
         String sql = "SELECT * FROM dell_users";
         try {
             con = new Db().getConnection();
@@ -46,7 +46,7 @@ public class DataMapper implements DataMapperInterface {
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                users.put(rs.getString("id"), new User(rs.getString("id"), rs.getString("rank"), rs.getString("userName"), rs.getString("password"), rs.getString("firstname"), rs.getString("lastname")));
+                users.put(rs.getInt("id"), new User(rs.getInt("id"), rs.getInt("rank"), rs.getString("userName"), rs.getString("password"), rs.getString("firstname"), rs.getString("lastname")));
             }
 
         } catch (SQLException ex) {
@@ -62,8 +62,8 @@ public class DataMapper implements DataMapperInterface {
     }
         
     @Override
-    public Map<String, Budget> getAllBudgets() {
-        Map<String, Budget> budgets = new HashMap(); 
+    public Map<Integer, Budget> getAllBudgets() {
+        Map<Integer, Budget> budgets = new HashMap(); 
         String sql = "SELECT * FROM dell_budget";
         try {
             con = new Db().getConnection();
@@ -73,7 +73,7 @@ public class DataMapper implements DataMapperInterface {
 
             while (rs.next()) {
 
-                budgets.put(rs.getString("id"), new Budget(rs.getInt("id"), rs.getInt("value")));
+                budgets.put(rs.getInt("id"), new Budget(rs.getInt("id"), rs.getInt("value")));
             }
 
         } catch (SQLException ex) {
@@ -89,8 +89,8 @@ public class DataMapper implements DataMapperInterface {
     }
 
     @Override
-    public Map<String, Campaign> getAllCampaigns() {
-        Map<String, Campaign> campaigns = new HashMap();
+    public Map<Integer, Campaign> getAllCampaigns() {
+        Map<Integer, Campaign> campaigns = new HashMap();
         String sql = "SELECT * FROM dell_campaigns";
         try {
             con = new Db().getConnection();
@@ -101,16 +101,16 @@ public class DataMapper implements DataMapperInterface {
             while (rs.next()) {
 
                 String sDate = rs.getDate("start_date").toString();
-                System.out.println(sDate);
+                //System.out.println(sDate);
                 String[] aSDate = sDate.split("-");
 
                 String start_day = aSDate[2];
                 String start_month = aSDate[1];
                 String start_year = aSDate[0];
 
-                System.out.println("Day: " + start_day);
-                System.out.println("Month: " + start_month);
-                System.out.println("Year: " + start_year);
+                //System.out.println("Day: " + start_day);
+                //System.out.println("Month: " + start_month);
+                //System.out.println("Year: " + start_year);
 
                 String eDate = rs.getDate("end_date").toString();
                 String[] eSDate = eDate.split("-");
@@ -119,7 +119,7 @@ public class DataMapper implements DataMapperInterface {
                 String end_month = eSDate[1];
                 String end_year = eSDate[0];
 
-                campaigns.put(rs.getString("id"), new Campaign(rs.getInt("id"), rs.getString("name"), rs.getInt("stepNumber"), rs.getString("description"), 
+                campaigns.put(rs.getInt("id"), new Campaign(rs.getInt("id"), rs.getString("name"), rs.getInt("stepNumber"), rs.getString("description"), 
                     start_day, start_month, start_year, 
                     end_day, end_month, end_year, 
                     rs.getString("target"), rs.getString("objectives"), 
@@ -140,8 +140,8 @@ public class DataMapper implements DataMapperInterface {
     }
 
     @Override
-    public Map<String, POE> getAllPOEs() {
-        Map<String, POE> poes = new HashMap();
+    public Map<Integer, POE> getAllPOEs() {
+        Map<Integer, POE> poes = new HashMap();
         String sql = "SELECT * FROM dell_files";
         try {
             con = new Db().getConnection();
@@ -151,7 +151,7 @@ public class DataMapper implements DataMapperInterface {
 
             while (rs.next()) {
 
-                poes.put(rs.getString("id"), new POE(rs.getInt("id"), rs.getString("name"), rs.getString("poe_url"), rs.getInt("campaignID")));
+                poes.put(rs.getInt("id"), new POE(rs.getInt("id"), rs.getString("name"), rs.getString("poe_url"), rs.getInt("campaignID")));
             }
 
         } catch (SQLException ex) {
@@ -230,10 +230,10 @@ public class DataMapper implements DataMapperInterface {
 
             if (rs.next()) {
                 adl = new AdminDashboardLine(
-                        rs.getString("Name"), rs.getString("Campaign Amount"),
-                        rs.getString("Seller Budget"), rs.getString("Budget used"),
-                        rs.getString("# of Pending Campaigns"), rs.getString("Cost of Pending Campaigns"),
-                        rs.getString("# of Completed Campaigns"), rs.getString("Cost of Completed Campaigns")
+                        rs.getString("Name"), rs.getInt("Campaign Amount"),
+                        rs.getInt("Seller Budget"), rs.getInt("Budget used"),
+                        rs.getInt("# of Pending Campaigns"), rs.getInt("Cost of Pending Campaigns"),
+                        rs.getInt("# of Completed Campaigns"), rs.getInt("Cost of Completed Campaigns")
                 );
             }
 
@@ -271,8 +271,8 @@ public class DataMapper implements DataMapperInterface {
     }
 
     @Override
-    public Map<String, AdminDashboardLine> getAllAdminDashboardLines() {
-        Map<String, AdminDashboardLine> adminDashboardLines = new HashMap();
+    public Map<Integer, AdminDashboardLine> getAllAdminDashboardLines() {
+        Map<Integer, AdminDashboardLine> adminDashboardLines = new HashMap();
         // get all the seller id's
         String sql = "select id from dell_users where rank = 2";
 
@@ -291,8 +291,8 @@ public class DataMapper implements DataMapperInterface {
             // for each seller ID create a dashboard line
             for (Integer i : ids) {
                 AdminDashboardLine a = getSingleAdminDashboardLine(i);
-                a.setSellerId("" + i);
-                adminDashboardLines.put(i.toString(), a);
+                a.setSellerId(i);
+                adminDashboardLines.put(i, a);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
@@ -373,10 +373,10 @@ public class DataMapper implements DataMapperInterface {
             rs = statement.executeQuery(sql8);
             if (rs.next()) {
                 sdl = new SellerDashboardLine(
-                        rs.getString("Name"), rs.getString("Campaign Amount"),
-                        rs.getString("Budget used"),
-                        rs.getString("# of Pending Campaigns"), rs.getString("Cost of Pending Campaigns"),
-                        rs.getString("# of Completed Campaigns"), rs.getString("Cost of Completed Campaigns")
+                        rs.getString("Name"), rs.getInt("Campaign Amount"),
+                        rs.getInt("Budget used"),
+                        rs.getInt("# of Pending Campaigns"), rs.getInt("Cost of Pending Campaigns"),
+                        rs.getInt("# of Completed Campaigns"), rs.getInt("Cost of Completed Campaigns")
                 );
             }
             /*
@@ -409,7 +409,7 @@ public class DataMapper implements DataMapperInterface {
     }
 
     @Override
-    public boolean fillSellerDashboardLines(int sellerID, Map<String, SellerDashboardLine> sellerDashboardLines ) {
+    public boolean fillSellerDashboardLines(int sellerID, Map<Integer, SellerDashboardLine> sellerDashboardLines ) {
         // get all the partner id's associated with the current seller
         String sql = "select distinct u.id from dell_users u , dell_campaigns c "
                 + "where u.rank = 1 and c.partnerID = u.id and c.sellerID = " + sellerID + " order by u.id";
@@ -428,9 +428,9 @@ public class DataMapper implements DataMapperInterface {
             // for each partner ID create a dashboard line
             for (Integer i : ids) {
                 SellerDashboardLine a = getSingleSellerDashboardLine(sellerID, i);
-                a.setId("" + sellerID);
-                a.setPartnerID("" + i);
-                sellerDashboardLines.put(i.toString(), a);
+                a.setId(sellerID);
+                a.setPartnerID(i);
+                sellerDashboardLines.put(i, a);
             }
 
         } catch (SQLException ex) {
@@ -444,8 +444,8 @@ public class DataMapper implements DataMapperInterface {
     }
 
     @Override
-    public Map<String, SellerDashboardLine> getAllSellerDashboardLines() {
-        Map<String, SellerDashboardLine> sellerDashboardLines = new HashMap();
+    public Map<Integer, SellerDashboardLine> getAllSellerDashboardLines() {
+        Map<Integer, SellerDashboardLine> sellerDashboardLines = new HashMap();
         // get all the partner id's associated with the current seller
         String sql = "select id from dell_users where rank = 2";
 
@@ -480,7 +480,7 @@ public class DataMapper implements DataMapperInterface {
     }
     
     @Override
-    public boolean fillPartnerDashboardLines(int partnerID, Map<String, PartnerDashboardLine> partnerDashboardLines) {
+    public boolean fillPartnerDashboardLines(int partnerID, Map<Integer, PartnerDashboardLine> partnerDashboardLines) {
         
         // Henter campaign navn samt den tilknyttede sellers navn.
         String sql4 = "select c.ID AS \"cID\", c.NAME AS name, u.FIRSTNAME AS \"sellername\", "
@@ -507,10 +507,10 @@ public class DataMapper implements DataMapperInterface {
                 }
 
                 PartnerDashboardLine pdl = new PartnerDashboardLine(
-                        rs.getString("name"), rs.getString("cID"), rs.getString("sellername"),
-                        rs.getString("budget"), currentState);
-                pdl.setId("" + partnerID);
-                partnerDashboardLines.put(rs.getString("cID"), pdl);
+                        rs.getString("name"), rs.getInt("cID"), rs.getString("sellername"),
+                        rs.getInt("budget"), currentState);
+                pdl.setId(partnerID);
+                partnerDashboardLines.put(rs.getInt("cID"), pdl);
             }
 
         } catch (SQLException ex) {
@@ -524,8 +524,8 @@ public class DataMapper implements DataMapperInterface {
     }
     
     @Override
-    public Map<String, PartnerDashboardLine> getAllPartnerDashboardLines() {
-        Map<String, PartnerDashboardLine> partnerDashboardLines = new HashMap();
+    public Map<Integer, PartnerDashboardLine> getAllPartnerDashboardLines() {
+        Map<Integer, PartnerDashboardLine> partnerDashboardLines = new HashMap();
         // get all the partner id's associated with the current seller
         String sql = "select u.id from dell_users u where u.rank = 1";
 
@@ -687,7 +687,7 @@ public class DataMapper implements DataMapperInterface {
             rs = statement.executeQuery(sqlGetBudgetID);
             rs.next();
             bID = rs.getString("budgetID");
-            System.out.println("Got budget ID: " + bID);
+            //System.out.println("Got budget ID: " + bID);
             
             if(updateBudget(bID, budget)) {
                 statement.executeUpdate(updateSQL);
@@ -811,37 +811,37 @@ public class DataMapper implements DataMapperInterface {
     } 
 
     @Override
-    public Map<String, AdminDashboardLine> getAdminDashboardLines() {
+    public Map<Integer, AdminDashboardLine> getAdminDashboardLines() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Map<String, Budget> getBudgets() {
+    public Map<Integer, Budget> getBudgets() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Map<String, Campaign> getCampaigns() {
+    public Map<Integer, Campaign> getCampaigns() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Map<String, PartnerDashboardLine> getPartnerDashboardLines() {
+    public Map<Integer, PartnerDashboardLine> getPartnerDashboardLines() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Map<String, POE> getPoes() {
+    public Map<Integer, POE> getPoes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Map<String, SellerDashboardLine> getSellerDashboardLines() {
+    public Map<Integer, SellerDashboardLine> getSellerDashboardLines() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Map<String, User> getUsers() {
+    public Map<Integer, User> getUsers() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

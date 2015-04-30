@@ -1,12 +1,12 @@
 package Test;
 
-import Interfaces.DataMapperInterface;
+import Interfaces.DataMapperIF;
 import Model.DataMapper;
 
 public class TestDataPutter {
     
     public static void main(String[] args) {
-        DataMapperInterface dp = new DataMapper();
+        DataMapperIF dp = new DataMapper();
         
         // Test oprettelse af kampagne samt budget og fil i DB.
         //dp.createCampaign("Mit navn", "Min beskrivelse", "Target: Kvinder", "3000", "05", "04", "13", "07", "08", "14", "Tjene penge", "14", "3");

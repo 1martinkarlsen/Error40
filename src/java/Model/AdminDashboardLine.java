@@ -12,19 +12,19 @@ package Model;
  *              contains seller information.
  */
 public class AdminDashboardLine {
-    private String sellerId;
+    private int sellerId;
     private String name;        // seller name
-    private String amountCampaigns;
-    private String sellerBudget;
-    private String budget_used;
-    private String pendingCampaigns;    // amount of non-completed campaigns
-    private String pendingCampaignsCost;
-    private String completedCampaigns;  // amount of completed campaigns
-    private String completedCampaignsCost;
+    private int amountCampaigns;
+    private int sellerBudget;
+    private int budget_used;
+    private int pendingCampaigns;    // amount of non-completed campaigns
+    private int pendingCampaignsCost;
+    private int completedCampaigns;  // amount of completed campaigns
+    private int completedCampaignsCost;
 
-    public AdminDashboardLine(String name, String amountCampaigns, String sellerBudget, 
-            String budget_used, String pendingCampaigns, String pendingCampaignsCost, 
-            String completedCampaigns, String completedCampaignsCost) {
+    public AdminDashboardLine(String name, int amountCampaigns, int sellerBudget, 
+            int budget_used, int pendingCampaigns, int pendingCampaignsCost, 
+            int completedCampaigns, int completedCampaignsCost) {
         this.name = name;
         this.amountCampaigns = amountCampaigns;
         this.sellerBudget = sellerBudget;
@@ -35,11 +35,11 @@ public class AdminDashboardLine {
         this.completedCampaignsCost = completedCampaignsCost;
     }
 
-    public String getSellerId() {
+    public int getSellerId() {
         return sellerId;
     }
     
-    public void setSellerId(String sellerId) {
+    public void setSellerId(int sellerId) {
         this.sellerId = sellerId;
     }
     
@@ -51,59 +51,59 @@ public class AdminDashboardLine {
         this.name = name;
     }
 
-    public String getAmountCampaigns() {
+    public int getAmountCampaigns() {
         return amountCampaigns;
     }
 
-    public void setAmountCampaigns(String amountCampaigns) {
+    public void setAmountCampaigns(int amountCampaigns) {
         this.amountCampaigns = amountCampaigns;
     }
 
-    public String getBudget_used() {
+    public int getBudget_used() {
         return budget_used;
     }
 
-    public void setBudget_used(String budget_used) {
+    public void setBudget_used(int budget_used) {
         this.budget_used = budget_used;
     }
 
-    public String getPendingCampaigns() {
+    public int getPendingCampaigns() {
         return pendingCampaigns;
     }
 
-    public void setPendingCampaigns(String pendingCampaigns) {
+    public void setPendingCampaigns(int pendingCampaigns) {
         this.pendingCampaigns = pendingCampaigns;
     }
 
-    public String getCompletedCampaigns() {
+    public int getCompletedCampaigns() {
         return completedCampaigns;
     }
 
-    public void setCompletedCampaigns(String completedCampaigns) {
+    public void setCompletedCampaigns(int completedCampaigns) {
         this.completedCampaigns = completedCampaigns;
     }
 
-    public String getSellerBudget() {
+    public int getSellerBudget() {
         return sellerBudget;
     }
 
-    public void setSellerBudget(String sellerBudget) {
+    public void setSellerBudget(int sellerBudget) {
         this.sellerBudget = sellerBudget;
     }
 
-    public String getPendingCampaignsCost() {
+    public int getPendingCampaignsCost() {
         return pendingCampaignsCost;
     }
 
-    public void setPendingCampaignsCost(String pendingCampaignsCost) {
+    public void setPendingCampaignsCost(int pendingCampaignsCost) {
         this.pendingCampaignsCost = pendingCampaignsCost;
     }
 
-    public String getCompletedCampaignsCost() {
+    public int getCompletedCampaignsCost() {
         return completedCampaignsCost;
     }
 
-    public void setCompletedCampaignsCost(String completedCampaignsCost) {
+    public void setCompletedCampaignsCost(int completedCampaignsCost) {
         this.completedCampaignsCost = completedCampaignsCost;
     }
 }

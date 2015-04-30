@@ -12,18 +12,18 @@ package Model;
  *              contains partner information.
  */
 public class SellerDashboardLine {
-    private String id;
-    private String partnerId;       // the partner associated with the current seller
+    private int id;
+    private int partnerId;       // the partner associated with the current seller
     private String name;
-    private String amountCampaigns;
+    private int amountCampaigns;
     //private String sellerBudget;
-    private String budget_used;
-    private String pendingCampaigns;    // campaigns not completed yet
-    private String pendingCampaignsCost;
-    private String completedCampaigns;
-    private String completedCampaignsCost;
+    private int budget_used;
+    private int pendingCampaigns;    // campaigns not completed yet
+    private int pendingCampaignsCost;
+    private int completedCampaigns;
+    private int completedCampaignsCost;
 
-    public SellerDashboardLine(String name, String amountCampaigns, String budget_used, String pendingCampaigns, String pendingCampaignsCost, String completedCampaigns, String completedCampaignsCost) {
+    public SellerDashboardLine(String name, int amountCampaigns, int budget_used, int pendingCampaigns, int pendingCampaignsCost, int completedCampaigns, int completedCampaignsCost) {
         this.name = name;
         this.amountCampaigns = amountCampaigns;
         this.budget_used = budget_used;
@@ -33,19 +33,19 @@ public class SellerDashboardLine {
         this.completedCampaignsCost = completedCampaignsCost;
     }
 
-    public String getId() {
+    public int getId() {
         return this.id;
     }
     
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
     
-    public String getPartnerId() {
+    public int getPartnerId() {
         return partnerId;
     }
 
-    public void setPartnerID(String partnerId) {
+    public void setPartnerID(int partnerId) {
         this.partnerId = partnerId;
     }
 
@@ -57,51 +57,51 @@ public class SellerDashboardLine {
         this.name = name;
     }
 
-    public String getAmountCampaigns() {
+    public int getAmountCampaigns() {
         return amountCampaigns;
     }
 
-    public void setAmountCampaigns(String amountCampaigns) {
+    public void setAmountCampaigns(int amountCampaigns) {
         this.amountCampaigns = amountCampaigns;
     }
 
-    public String getBudget_used() {
+    public int getBudget_used() {
         return budget_used;
     }
 
-    public void setBudget_used(String budget_used) {
+    public void setBudget_used(int budget_used) {
         this.budget_used = budget_used;
     }
 
-    public String getPendingCampaigns() {
+    public int getPendingCampaigns() {
         return pendingCampaigns;
     }
 
-    public void setPendingCampaigns(String pendingCampaigns) {
+    public void setPendingCampaigns(int pendingCampaigns) {
         this.pendingCampaigns = pendingCampaigns;
     }
 
-    public String getPendingCampaignsCost() {
+    public int getPendingCampaignsCost() {
         return pendingCampaignsCost;
     }
 
-    public void setPendingCampaignsCost(String pendingCampaignsCost) {
+    public void setPendingCampaignsCost(int pendingCampaignsCost) {
         this.pendingCampaignsCost = pendingCampaignsCost;
     }
 
-    public String getCompletedCampaigns() {
+    public int getCompletedCampaigns() {
         return completedCampaigns;
     }
 
-    public void setCompletedCampaigns(String completedCampaigns) {
+    public void setCompletedCampaigns(int completedCampaigns) {
         this.completedCampaigns = completedCampaigns;
     }
 
-    public String getCompletedCampaignsCost() {
+    public int getCompletedCampaignsCost() {
         return completedCampaignsCost;
     }
 
-    public void setCompletedCampaignsCost(String completedCampaignsCost) {
+    public void setCompletedCampaignsCost(int completedCampaignsCost) {
         this.completedCampaignsCost = completedCampaignsCost;
     }
     

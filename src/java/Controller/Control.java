@@ -8,11 +8,11 @@ package Controller;
 import Interfaces.ControlIF;
 import Model.AdminDashboardLine;
 import Model.Authentification;
-import Model.AuthentificationInterface;
+import Interfaces.AuthentificationIF;
 import Model.Budget;
 import Model.Campaign;
 import Model.DataMapper;
-import Interfaces.DataMapperInterface;
+import Interfaces.DataMapperIF;
 import Model.POE;
 import Model.PartnerDashboardLine;
 import Model.SellerDashboardLine;
@@ -27,8 +27,8 @@ import java.util.Map;
  */
 public class Control implements ControlIF {
 
-    private DataMapperInterface dm;
-    private AuthentificationInterface au;
+    private DataMapperIF dm;
+    private AuthentificationIF au;
     
     private String rank = null;
     private User u = null;
@@ -39,7 +39,7 @@ public class Control implements ControlIF {
         au = new Authentification(); 
     }
     
-    public Control(DataMapperInterface stubDm, AuthentificationInterface stubAu) {
+    public Control(DataMapperIF stubDm, AuthentificationIF stubAu) {
         dm = stubDm;
         au = stubAu;
     }
@@ -56,21 +56,21 @@ public class Control implements ControlIF {
         return u != null;
     }
 
-    public Map<String, AdminDashboardLine> getAdminDashboardLines() {
+    public Map<Integer, AdminDashboardLine> getAdminDashboardLines() {
         return dm.getAllAdminDashboardLines();
               
     }
 
-    public Map<String, SellerDashboardLine> getSellerDashboardLines() {
+    public Map<Integer, SellerDashboardLine> getSellerDashboardLines() {
         return dm.getAllSellerDashboardLines();
 
     }
 
-    public Map<String, PartnerDashboardLine> getPartnerDashboardLines() {
+    public Map<Integer, PartnerDashboardLine> getPartnerDashboardLines() {
        return dm.getAllPartnerDashboardLines();
     }
 
-    public String getUserRank() {
+    public int getUserRank() {
         return u.getRank();
     }
 
@@ -78,23 +78,23 @@ public class Control implements ControlIF {
         return u;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return u.getId();
     }
     
-    public Map<String, Campaign> getCampaign() {
+    public Map<Integer, Campaign> getCampaign() {
         return dm.getAllCampaigns();
     }
     
-    public Map<String, POE> getPOEs() {
+    public Map<Integer, POE> getPOEs() {
         return dm.getAllPOEs();
     }
     
-    public Map<String, Budget> getBudget() {
+    public Map<Integer, Budget> getBudget() {
         return dm.getAllBudgets();
     }
     
-    public Map<String, User> getUsers() {
+    public Map<Integer, User> getUsers() {
         return dm.getAllUsers();
     }
 }

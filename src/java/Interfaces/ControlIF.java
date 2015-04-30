@@ -24,15 +24,15 @@ public interface ControlIF {
     public void logout();
     public boolean login(String username, String password);
     
-    public Map<String, AdminDashboardLine> getAdminDashboardLines();
-    public Map<String, SellerDashboardLine> getSellerDashboardLines();
-    public Map<String, PartnerDashboardLine> getPartnerDashboardLines();
+    public Map<Integer, AdminDashboardLine> getAdminDashboardLines();
+    public Map<Integer, SellerDashboardLine> getSellerDashboardLines();
+    public Map<Integer, PartnerDashboardLine> getPartnerDashboardLines();
     
-    public String getUserRank();
-    public String getUserID();
+    public int getUserRank();
+    public int getUserID();
     public User getUser();
-    public Map<String, Campaign> getCampaign();
-    public Map<String, POE> getPOEs();
-    public Map<String, Budget> getBudget();
-    public Map<String, User> getUsers();
+    public Map<Integer, Campaign> getCampaign();
+    public Map<Integer, POE> getPOEs();
+    public Map<Integer, Budget> getBudget();
+    public Map<Integer, User> getUsers();
 }

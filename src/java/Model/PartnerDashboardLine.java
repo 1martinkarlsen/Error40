@@ -5,21 +5,21 @@ package Model;
  *              contains campaign information.
 */
 public class PartnerDashboardLine {
-    private String id;
-    private String campaignId;
+    private int id;
+    private int campaignId;
     private String name;
     private String sellerName;
-    private String budget;
+    private int budget;
     private String currentState;
 
-    public PartnerDashboardLine(String name, String sellerName, String budget, String currentState) {
+    public PartnerDashboardLine(String name, String sellerName, int budget, String currentState) {
         this.name = name;
         this.sellerName = sellerName;
         this.budget = budget;
         this.currentState = currentState;
     }
     
-    public PartnerDashboardLine(String name, String campaignId, String sellerName, String budget, String currentState) {
+    public PartnerDashboardLine(String name, int campaignId, String sellerName, int budget, String currentState) {
         this.name = name;
         this.campaignId = campaignId;
         this.sellerName = sellerName;
@@ -27,19 +27,19 @@ public class PartnerDashboardLine {
         this.currentState = currentState;
     }
 
-    public String getCampaignId() {
+    public int getCampaignId() {
         return campaignId;
     }
 
-    public void setCampaignId(String campaignId) {
+    public void setCampaignId(int campaignId) {
         this.campaignId = campaignId;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
     
-    public String getId() {
+    public int getId() {
         return this.id;
     }
     
@@ -59,11 +59,11 @@ public class PartnerDashboardLine {
         this.sellerName = sellerName;
     }
 
-    public String getBudget() {
+    public int getBudget() {
         return budget;
     }
 
-    public void setBudget(String budget) {
+    public void setBudget(int budget) {
         this.budget = budget;
     }
 

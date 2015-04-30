@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Interfaces.AuthentificationIF;
 import Model.users.User;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author Rasmus
  */
-public class AuthentificationStub implements AuthentificationInterface {
+public class AuthentificationStub implements AuthentificationIF {
 
     @Override
     public List<User> getUsers() {

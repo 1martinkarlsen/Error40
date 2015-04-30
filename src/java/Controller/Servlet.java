@@ -57,17 +57,17 @@ public class Servlet extends HttpServlet {
                     request.getSession().setAttribute("user", control.getUser());
 
                     switch (control.getUserRank()) {
-                        case "3": // Logging in as administrator
+                        case 3: // Logging in as administrator
                             request.getSession().setAttribute("allAdminLines", control.getAdminDashboardLines());
                             response.sendRedirect("index.jsp?show=Admin/dashboard.jsp");
                             return;
 
-                        case "2": // logging in as a seller.
+                        case 2: // logging in as a seller.
                             request.getSession().setAttribute("allSellerLines", control.getSellerDashboardLines());
                             response.sendRedirect("index.jsp?show=Seller/dashboard.jsp");
                             return;
                             
-                        case "1": // Logging in as a partner.
+                        case 1: // Logging in as a partner.
                             request.getSession().setAttribute("allPartnerLines", control.getPartnerDashboardLines());
                             response.sendRedirect("index.jsp?show=Partner/dashboard.jsp");
                             return;
@@ -98,19 +98,19 @@ public class Servlet extends HttpServlet {
                 case "showDefaultSite":
                     
                     switch (control.getUserRank()) {
-                        case "3": 
+                        case 3: 
                             request.getSession().setAttribute("allAdminLines", control.getAdminDashboardLines());
                             response.sendRedirect("index.jsp?show=Admin/dashboard.jsp");
                             
                             return;
                             
-                        case "2": 
+                        case 2: 
                             request.getSession().setAttribute("allSellerLines", control.getSellerDashboardLines());
                             response.sendRedirect("index.jsp?show=Seller/dashboard.jsp");
                             
                             return;
                             
-                        case "1": 
+                        case 1: 
                             request.getSession().setAttribute("allPartnerLines", control.getPartnerDashboardLines());
                             response.sendRedirect("index.jsp?show=Partner/dashboard.jsp");
                             

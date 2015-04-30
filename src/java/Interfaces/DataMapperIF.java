@@ -18,21 +18,21 @@ import java.util.Map;
  *
  * @author Rasmus
  */
-public interface DataMapperInterface {
+public interface DataMapperIF {
 
-    Map<String, AdminDashboardLine> getAllAdminDashboardLines();
+    Map<Integer, AdminDashboardLine> getAllAdminDashboardLines();
 
-    Map<String, Campaign> getAllCampaigns();
+    Map<Integer, Campaign> getAllCampaigns();
 
-    Map<String, PartnerDashboardLine> getAllPartnerDashboardLines();
+    Map<Integer, PartnerDashboardLine> getAllPartnerDashboardLines();
     
-    Map<String, SellerDashboardLine> getAllSellerDashboardLines();
+    Map<Integer, SellerDashboardLine> getAllSellerDashboardLines();
 
-    boolean fillPartnerDashboardLines(int partnerID, Map<String, PartnerDashboardLine> partnerDashboardLines);
+    boolean fillPartnerDashboardLines(int partnerID, Map<Integer, PartnerDashboardLine> partnerDashboardLines);
 
-    boolean fillSellerDashboardLines(int sellerID, Map<String, SellerDashboardLine> sellerDashboardLines);
+    boolean fillSellerDashboardLines(int sellerID, Map<Integer, SellerDashboardLine> sellerDashboardLines);
 
-    Map<String, AdminDashboardLine> getAdminDashboardLines();
+    Map<Integer, AdminDashboardLine> getAdminDashboardLines();
 
 //    
 //    boolean getAllBudgets();
@@ -41,27 +41,27 @@ public interface DataMapperInterface {
 //
 //    boolean getAllUsers();
 
-    Map<String, Budget> getBudgets();
+    Map<Integer, Budget> getBudgets();
 
-    Map<String, Campaign> getCampaigns();
+    Map<Integer, Campaign> getCampaigns();
 
-    Map<String, PartnerDashboardLine> getPartnerDashboardLines();
+    Map<Integer, PartnerDashboardLine> getPartnerDashboardLines();
 
-    Map<String, POE> getPoes();
+    Map<Integer, POE> getPoes();
     
-    Map<String, User> getAllUsers();
+    Map<Integer, User> getAllUsers();
     
-    Map<String, Budget> getAllBudgets();
+    Map<Integer, Budget> getAllBudgets();
     
-    Map<String, POE> getAllPOEs();
+    Map<Integer, POE> getAllPOEs();
 
-    Map<String, SellerDashboardLine> getSellerDashboardLines();
+    Map<Integer, SellerDashboardLine> getSellerDashboardLines();
 
     AdminDashboardLine getSingleAdminDashboardLine(int sellerID);
 
     SellerDashboardLine getSingleSellerDashboardLine(int sellerID, int partnerID);
 
-    Map<String, User> getUsers();
+    Map<Integer, User> getUsers();
 
     // void resetLists();
     

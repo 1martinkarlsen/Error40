@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Interfaces.AuthentificationIF;
 import Model.users.User;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  *
  * Authentification class used for authorize users to the system
  */
-public class Authentification implements AuthentificationInterface {
+public class Authentification implements AuthentificationIF {
 
     List<User> users = new ArrayList();
 
@@ -45,7 +46,7 @@ public class Authentification implements AuthentificationInterface {
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                users.add(new User(rs.getString("id"), rs.getString("rank"), rs.getString("userName"), rs.getString("password"), rs.getString("firstname"), rs.getString("lastname")));
+                users.add(new User(rs.getInt("id"), rs.getInt("rank"), rs.getString("userName"), rs.getString("password"), rs.getString("firstname"), rs.getString("lastname")));
             }
 
         } catch (SQLException ex) {

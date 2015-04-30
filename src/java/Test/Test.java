@@ -84,7 +84,7 @@ public class Test {
 
         dm.getAllSellerDashboardLines();
 
-        for (Map.Entry<String, SellerDashboardLine> entry : dm.getSellerDashboardLines().entrySet()) {
+        for (Map.Entry<Integer, SellerDashboardLine> entry : dm.getSellerDashboardLines().entrySet()) {
             value2 = entry.getValue();
             System.out.println(value2.getId() + ": (" + value2.getPartnerId() + ")" + value2.getName() + ", " + value2.getAmountCampaigns()
                     + ", " + value2.getBudget_used() + ", " + value2.getPendingCampaigns()
