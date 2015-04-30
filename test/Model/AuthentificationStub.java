@@ -7,6 +7,7 @@ package Model;
 
 import Interfaces.AuthentificationIF;
 import Model.users.User;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,14 +16,32 @@ import java.util.List;
  */
 public class AuthentificationStub implements AuthentificationIF {
 
+    List<User> users = new ArrayList();
+
+    public AuthentificationStub() {
+        // generate test database entry
+        User dummy = new User(5, 2, "dummyName", "dummyPw", "dummyFirstName", "dummyLastName");
+        users.add(dummy);
+    }
+    
+    
+    
     @Override
     public List<User> getUsers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                
+        return users;
+        
     }
 
     @Override
     public User validate(String username, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(User u : users) {
+            if(username.equals(u.getUserName())) {
+                if(password.equals(u.getPassword())) {
+                    return u;
+                }
+            }
+        }
+        return null;
     }
-    
 }

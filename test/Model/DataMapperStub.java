@@ -27,9 +27,13 @@ public class DataMapperStub implements DataMapperIF {
         return lines;
     }
 
+    
     @Override
     public Map<Integer, AdminDashboardLine> getAllAdminDashboardLines() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        HashMap<Integer, AdminDashboardLine> lines = new HashMap<>();
+        lines.put(1, new AdminDashboardLine("Ole", 5, 2000, 500, 2, 300, 3,1500));
+        lines.put(2, new AdminDashboardLine("Vera", 7, 4000, 1000, 5, 200, 2,2000));
+        return lines;
     }
 
     @Override
@@ -39,16 +43,21 @@ public class DataMapperStub implements DataMapperIF {
 
     @Override
     public Map<Integer, PartnerDashboardLine> getAllPartnerDashboardLines() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        HashMap<Integer, PartnerDashboardLine> lines = new HashMap<>();
+        lines.put(9, new PartnerDashboardLine("Kampagne 9", "Vera", 3500, "Processing"));
+        lines.put(42, new PartnerDashboardLine("Kampagne 42", "Ole", 4400, "Pending"));
+        return lines;
+        
     }
 
-    public int getAllSellerDashboardLinesCount = 0;
+   
     @Override
     public Map<Integer, SellerDashboardLine> getAllSellerDashboardLines() {
-        getAllSellerDashboardLinesCount++;
         HashMap<Integer, SellerDashboardLine> lines = new HashMap<>();
-        lines.put(1448, new SellerDashboardLine("Emanuel", 200, 500, 107, 389, 93, 111));
-        return lines;    }
+        lines.put(9, new SellerDashboardLine("Emanuel", 200, 500, 107, 389, 93, 111));
+        lines.put(13, new SellerDashboardLine("SuperSeller", 400, 505, 103, 5, 69, 11100));
+        return lines;
+    }
 
     @Override
     public boolean fillPartnerDashboardLines(int partnerID, Map<Integer, PartnerDashboardLine> partnerDashboardLines) {
