@@ -20,6 +20,8 @@ import java.util.Map;
  */
 public interface DataMapperIF {
 
+    void resetViews();
+    
     Map<Integer, AdminDashboardLine> getAllAdminDashboardLines();
 
     Map<Integer, Campaign> getAllCampaigns();

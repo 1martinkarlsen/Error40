@@ -27,21 +27,52 @@ public class DataMapper implements DataMapperIF {
 //    Map<String, AdminDashboardLine> adminDashboardLines = new HashMap(); // Liste over den information der skal vises på Admin dashboard.
 //    Map<String, SellerDashboardLine> sellerDashboardLines = new HashMap(); // Liste over den information der skal vises på Seller dashboard.
 //    Map<String, PartnerDashboardLine> partnerDashboardLines = new HashMap(); // Liste over den information der skal vises på Partner dashboard.
-
     private Statement statement;
     private Db db;
     private Connection con;
     private ResultSet rs;
 
+    public void resetViews() {
+        // reset the views no matter what
+        String sql1 = "drop view query1";
+        String sql2 = "drop view query2";
+        String sql3 = "drop view query3";
+        String sql3a = "drop view query4";
 
-    
+        try {
+            con = new Db().getConnection();
+
+            //create a single sql query out of many 
+            statement = con.createStatement();
+            con.setAutoCommit(false);
+            statement.addBatch(sql1);
+            statement.addBatch(sql2);
+            statement.addBatch(sql3);
+            statement.addBatch(sql3a);
+
+            statement.executeBatch();
+            con.commit();
+            con.setAutoCommit(true);
+
+        } catch (SQLException ex) {
+         // if the drop views failed do nothing 
+
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        }
+    }
+
     @Override
-    public Map<Integer, User>  getAllUsers() {
+    public Map<Integer, User> getAllUsers() {
         Map<Integer, User> users = new HashMap();
         String sql = "SELECT * FROM dell_users";
         try {
             con = new Db().getConnection();
-            
+
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
 
@@ -61,14 +92,14 @@ public class DataMapper implements DataMapperIF {
         }
         return users;
     }
-        
+
     @Override
     public Map<Integer, Budget> getAllBudgets() {
-        Map<Integer, Budget> budgets = new HashMap(); 
+        Map<Integer, Budget> budgets = new HashMap();
         String sql = "SELECT * FROM dell_budget";
         try {
             con = new Db().getConnection();
-            
+
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
 
@@ -96,7 +127,7 @@ public class DataMapper implements DataMapperIF {
         String sql = "SELECT * FROM dell_campaigns";
         try {
             con = new Db().getConnection();
-            
+
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
 
@@ -116,12 +147,12 @@ public class DataMapper implements DataMapperIF {
                 int end_month = Integer.parseInt(eSDate[1]);
                 int end_year = Integer.parseInt(eSDate[0]);
 
-                campaigns.put(rs.getInt("id"), new Campaign(rs.getInt("id"), rs.getString("name"), rs.getInt("stepNumber"), rs.getString("description"), 
-                    start_day, start_month, start_year, 
-                    end_day, end_month, end_year, 
-                    rs.getString("target"), rs.getString("objectives"), 
-                    rs.getInt("approve_seller_project"), rs.getInt("approve_partner_project"), rs.getInt("approve_seller_POE"), 
-                    rs.getInt("partnerID"), rs.getInt("sellerID"), rs.getInt("budgetID")));
+                campaigns.put(rs.getInt("id"), new Campaign(rs.getInt("id"), rs.getString("name"), rs.getInt("stepNumber"), rs.getString("description"),
+                        start_day, start_month, start_year,
+                        end_day, end_month, end_year,
+                        rs.getString("target"), rs.getString("objectives"),
+                        rs.getInt("approve_seller_project"), rs.getInt("approve_partner_project"), rs.getInt("approve_seller_POE"),
+                        rs.getInt("partnerID"), rs.getInt("sellerID"), rs.getInt("budgetID")));
             }
 
         } catch (SQLException ex) {
@@ -143,7 +174,7 @@ public class DataMapper implements DataMapperIF {
         String sql = "SELECT * FROM dell_files";
         try {
             con = new Db().getConnection();
-            
+
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
 
@@ -212,8 +243,8 @@ public class DataMapper implements DataMapperIF {
         String sql3a = "drop view query4";
 
         try {
-            //con = Db.getInstance().getConnection();
-            
+            con = new Db().getConnection();
+
             //create a single sql query out of many 
             statement = con.createStatement();
             con.setAutoCommit(false);
@@ -278,7 +309,7 @@ public class DataMapper implements DataMapperIF {
 
         try {
             con = new Db().getConnection();
-            
+
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
 
@@ -314,9 +345,9 @@ public class DataMapper implements DataMapperIF {
         // Henter partner navn samt addresse.
         // Henter budget for den specifikke partner
         String sql4 = "create view query1 AS "
-                + "select distinct u.FIRSTNAME, (p.SHOPNAME || ' - ' || p.ADDRESS) AS shop " 
+                + "select distinct u.FIRSTNAME, (p.SHOPNAME || ' - ' || p.ADDRESS) AS shop "
                 + "from dell_partner p, dell_users u, dell_campaigns c "
-                + "where p.USERID = u.id and p.USERID = c.PARTNERID and c.PARTNERID = " + partnerID 
+                + "where p.USERID = u.id and p.USERID = c.PARTNERID and c.PARTNERID = " + partnerID
                 + "and c.SELLERID = " + sellerID;
 
         // Henter antal af pending campaigns og summer pending campaigns $.
@@ -357,7 +388,7 @@ public class DataMapper implements DataMapperIF {
         String sql3a = "drop view query4";
 
         try {
-            
+
             //create a single sql query out of many 
             statement = con.createStatement();
 
@@ -409,13 +440,13 @@ public class DataMapper implements DataMapperIF {
     }
 
     @Override
-    public boolean fillSellerDashboardLines(int sellerID, Map<Integer, SellerDashboardLine> sellerDashboardLines ) {
+    public boolean fillSellerDashboardLines(int sellerID, Map<Integer, SellerDashboardLine> sellerDashboardLines) {
         // get all the partner id's associated with the current seller
         String sql = "select distinct u.id from dell_users u , dell_campaigns c "
                 + "where u.rank = 1 and c.partnerID = u.id and c.sellerID = " + sellerID + " order by u.id";
 
         try {
-            
+
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
 
@@ -435,7 +466,7 @@ public class DataMapper implements DataMapperIF {
 
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
-            
+
             System.out.println(ex.getMessage());
             return false;
         }
@@ -451,7 +482,7 @@ public class DataMapper implements DataMapperIF {
 
         try {
             con = new Db().getConnection();
-            
+
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
 
@@ -460,7 +491,7 @@ public class DataMapper implements DataMapperIF {
             while (rs.next()) {
                 ids.add(rs.getInt("id"));
             }
-            
+
             // for each partner ID create a dashboard line
             for (Integer i : ids) {
                 fillSellerDashboardLines(i, sellerDashboardLines);
@@ -477,10 +508,10 @@ public class DataMapper implements DataMapperIF {
             }
         }
     }
-    
+
     @Override
     public boolean fillPartnerDashboardLines(int partnerID, Map<Integer, PartnerDashboardLine> partnerDashboardLines) {
-        
+
         // Henter campaign navn samt den tilknyttede sellers navn.
         String sql4 = "select c.ID AS \"cID\", c.NAME AS name, u.FIRSTNAME AS \"sellername\", "
                 + "b.\"VALUE\" as \"Budget\", c.stepNumber as \"stepnumber\" "
@@ -488,9 +519,8 @@ public class DataMapper implements DataMapperIF {
                 + "where c.BUDGETID = b.ID and u.ID = c.SELLERID and c.PARTNERID = " + partnerID + " "
                 + "order by u.FIRSTNAME, b.\"VALUE\" ";
 
-        
         try {
-            
+
             String currentState = null;
 
             //create a single sql query out of many 
@@ -521,7 +551,7 @@ public class DataMapper implements DataMapperIF {
         return true;
         //return pdl;
     }
-    
+
     @Override
     public Map<Integer, PartnerDashboardLine> getAllPartnerDashboardLines() {
         Map<Integer, PartnerDashboardLine> partnerDashboardLines = new HashMap();
@@ -530,7 +560,7 @@ public class DataMapper implements DataMapperIF {
 
         try {
             con = new Db().getConnection();
-            
+
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
 
@@ -544,7 +574,7 @@ public class DataMapper implements DataMapperIF {
             for (Integer i : ids) {
                 fillPartnerDashboardLines(i, partnerDashboardLines);
             }
-            
+
             return partnerDashboardLines;
         } catch (SQLException ex) {
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
@@ -557,22 +587,21 @@ public class DataMapper implements DataMapperIF {
             }
         }
     }
-    
-    
+
     // Creates a budget
     private String createBudget(String value) {
         String sql = "INSERT INTO dell_budget"
                 + "(id, value) VALUES (seq_budget.NEXTVAL, '" + value + "')";
-        
+
         String sqlGet = "SELECT seq_budget.CURRVAL AS \"currentValue\" FROM dell_budget";
-        
+
         String bID = null;
-        try {            
+        try {
             // Inserts data
             statement = con.createStatement();
             statement.addBatch(sql);
             statement.executeBatch();
-            
+
             // Recieve ID
             rs = statement.executeQuery(sqlGet);
             rs.next();
@@ -580,154 +609,68 @@ public class DataMapper implements DataMapperIF {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
         return bID;
-    }; 
+    }
+
+    ; 
     
     // updates a budget 
     private boolean updateBudget(int bID, int value) {
         String sql = "UPDATE dell_budget SET value=" + value + ""
                 + "WHERE id=" + bID;
-        
+
         try {
             statement = con.createStatement();
             statement.addBatch(sql);
             statement.executeBatch();
-            
+
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
         }
-    }; 
+    }
+
+    ; 
     
     @Override
     public boolean createCampaign(String name, String description, String target, String budget,
             String start_day, String start_month, String start_year,
             String end_day, String end_month, String end_year, String objective, String partnerID, String sellerID) {
 
+        String startDate = start_day + "-" + start_month + "-" + start_year; // Concatenate to a start date.
+        String endDate = end_day + "-" + end_month + "-" + end_year; // Concatenate to an end date.
 
-            String startDate = start_day + "-" + start_month + "-" + start_year; // Concatenate to a start date.
-            String endDate = end_day + "-" + end_month + "-" + end_year; // Concatenate to an end date.
-            
-            String bID = createBudget(budget); // Create a budget and get its ID.
-        
-            String sql = "INSERT INTO dell_campaigns "
-                    + "(id, name, stepNumber, description, start_date, end_date, "
-                    + "target, objectives, approve_seller_project, approve_partner_project, approve_seller_POE, approve_partner_POE, budgetID, partnerID, sellerID)"
-                    + " VALUES (seq_campaigns.NEXTVAL, '" + name + "', '1', '" + description + "', '" + startDate + "', '" + endDate + "' "
-                    + ", '" + target + "', '" + objective + "', '0', '0', '0', '0', '" + bID + "', '" + partnerID + "', '" + sellerID + "' "
-                    + ")";
-            
-            String sqlGetID = "SELECT seq_campaigns.CURRVAL AS \"currentCID\" FROM dell_campaigns";
-            
-            String cID = null;
-            try {
-                con = new Db().getConnection();
-                
-                // Insert campaign.
-                statement = con.createStatement();
-                statement.addBatch(sql);
-                statement.executeBatch();
-                
-                // Select campaign ID.
-                rs = statement.executeQuery(sqlGetID);
-                rs.next();
-                cID = rs.getString("currentCID");
-                
-                if(bID != null) {
-                    uploadFile(cID, partnerID, name, "poe");
-                } 
-                
-                return true;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                return false;
-            } finally {
-                try {
-                    con.close();
-                } catch (Exception e) {
-                    e.getMessage();
-                }
-            }
-    } 
+        String bID = createBudget(budget); // Create a budget and get its ID.
 
-    // update the campaign    
-    @Override
-    public boolean updateCampaign(int cID, String name, String description, String target, int budget,
-            int start_day, int start_month, int start_year,
-            int end_day, int end_month, int end_year, String objective) {
-        
-        int bID;
-        int stepNumber;
-        int partnerID;
-        int sellerID;
-        
-        String start_date = start_year + "-" + start_month + "-" + start_day; // Concatenate to a start date.
-        String end_date = end_year + "-" + end_month + "-" + end_day; // Concatenate to an end date.
-        
-        String sqlGetBudgetID = "SELECT budgetID AS \"budgetID\" "
-                + "FROM dell_campaigns " 
-                + "WHERE ID = " + cID; 
-        
-        String updateSQL = "UPDATE dell_campaigns SET "
-                + "name ='" + name + "', "
-                + "description ='" + description + "', "
-                + "start_date ='" + start_date + "', "
-                + "end_date ='" + end_date + "', "
-                + "target ='" + target + "', "
-                + "objectives ='" + objective + "', "
-                + "approve_seller_project ='0', "
-                + "approve_partner_project = '0' "
-                + "WHERE id =" + cID;
-        
+        String sql = "INSERT INTO dell_campaigns "
+                + "(id, name, stepNumber, description, start_date, end_date, "
+                + "target, objectives, approve_seller_project, approve_partner_project, approve_seller_POE, approve_partner_POE, budgetID, partnerID, sellerID)"
+                + " VALUES (seq_campaigns.NEXTVAL, '" + name + "', '1', '" + description + "', '" + startDate + "', '" + endDate + "' "
+                + ", '" + target + "', '" + objective + "', '0', '0', '0', '0', '" + bID + "', '" + partnerID + "', '" + sellerID + "' "
+                + ")";
+
+        String sqlGetID = "SELECT seq_campaigns.CURRVAL AS \"currentCID\" FROM dell_campaigns";
+
+        String cID = null;
         try {
             con = new Db().getConnection();
-            
-            statement = con.createStatement();
-            rs = statement.executeQuery(sqlGetBudgetID);
-            rs.next();
-            bID = Integer.parseInt(rs.getString("budgetID"));
-            
-            if(updateBudget(bID, budget)) {
-                statement.executeUpdate(updateSQL);
-            }
-            
-            return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
-        } finally {
-            try {
-                con.close();
-            } catch (Exception e) {
-                e.getMessage();
-            }
-        }
-    } 
 
-    // Change stepNumber for campaign
-    @Override
-    public boolean changeCampaignStep(int cID, int stepNumber) {
-        
-        String getStepNumber = "SELECT stepNumber AS \"stepNumber\" "
-                + "FROM dell_campaigns "
-                + "WHERE id=" + cID;
-        
-        String sql = "UPDATE dell_campaigns SET "
-                + "stepNumber='" + stepNumber + "' "
-                + "WHERE id='" + cID + "' ";
-        
-        try {
-            con = new Db().getConnection();
-            
+            // Insert campaign.
             statement = con.createStatement();
-            rs = statement.executeQuery(getStepNumber);
+            statement.addBatch(sql);
+            statement.executeBatch();
+
+            // Select campaign ID.
+            rs = statement.executeQuery(sqlGetID);
             rs.next();
-            stepNumber = rs.getInt("stepNumber");
-            statement.executeUpdate(sql);
-            System.out.println(sql);
-            
+            cID = rs.getString("currentCID");
+
+            if (bID != null) {
+                uploadFile(cID, partnerID, name, "poe");
+            }
+
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -740,31 +683,120 @@ public class DataMapper implements DataMapperIF {
             }
         }
     }
-    
+
+    // update the campaign    
+    @Override
+    public boolean updateCampaign(int cID, String name, String description, String target, int budget,
+            int start_day, int start_month, int start_year,
+            int end_day, int end_month, int end_year, String objective) {
+
+        int bID;
+        int stepNumber;
+        int partnerID;
+        int sellerID;
+
+        String start_date = start_year + "-" + start_month + "-" + start_day; // Concatenate to a start date.
+        String end_date = end_year + "-" + end_month + "-" + end_day; // Concatenate to an end date.
+
+        String sqlGetBudgetID = "SELECT budgetID AS \"budgetID\" "
+                + "FROM dell_campaigns "
+                + "WHERE ID = " + cID;
+
+        String updateSQL = "UPDATE dell_campaigns SET "
+                + "name ='" + name + "', "
+                + "description ='" + description + "', "
+                + "start_date ='" + start_date + "', "
+                + "end_date ='" + end_date + "', "
+                + "target ='" + target + "', "
+                + "objectives ='" + objective + "', "
+                + "approve_seller_project ='0', "
+                + "approve_partner_project = '0' "
+                + "WHERE id =" + cID;
+
+        try {
+            con = new Db().getConnection();
+
+            statement = con.createStatement();
+            rs = statement.executeQuery(sqlGetBudgetID);
+            rs.next();
+            bID = Integer.parseInt(rs.getString("budgetID"));
+
+            if (updateBudget(bID, budget)) {
+                statement.executeUpdate(updateSQL);
+            }
+
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        }
+    }
+
+    // Change stepNumber for campaign
+    @Override
+    public boolean changeCampaignStep(int cID, int stepNumber) {
+
+        String getStepNumber = "SELECT stepNumber AS \"stepNumber\" "
+                + "FROM dell_campaigns "
+                + "WHERE id=" + cID;
+
+        String sql = "UPDATE dell_campaigns SET "
+                + "stepNumber='" + stepNumber + "' "
+                + "WHERE id='" + cID + "' ";
+
+        try {
+            con = new Db().getConnection();
+
+            statement = con.createStatement();
+            rs = statement.executeQuery(getStepNumber);
+            rs.next();
+            stepNumber = rs.getInt("stepNumber");
+            statement.executeUpdate(sql);
+            System.out.println(sql);
+
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        }
+    }
+
     // approve a campaign
     @Override
     public boolean approveCampaignProject(int cID, int rank, int choice) {
-        
+
         String partnerProjectSQL = "UPDATE dell_campaigns SET "
                 + "approve_partner_project = '" + choice + "' "
                 + "WHERE id = " + cID;
         String sellerProjectSQL = "UPDATE dell_campaigns SET "
                 + "approve_seller_project = '" + choice + "' "
                 + "WHERE id = " + cID;
-        
+
         String SQL = null;
-        
+
         try {
             con = new Db().getConnection();
-            
-            if(rank == 1) {
+
+            if (rank == 1) {
                 SQL = partnerProjectSQL;
             } else {
                 SQL = sellerProjectSQL;
             }
             statement = con.createStatement();
             statement.executeUpdate(SQL);
-            
+
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -776,21 +808,21 @@ public class DataMapper implements DataMapperIF {
                 e.getMessage();
             }
         }
-    } 
-    
+    }
+
     // approve POE
     @Override
     public boolean approveCampaignPOE(int cID, int choice) {
         String sql = "UPDATE dell_campaigns SET "
                 + "approve_seller_POE = '" + choice + "' "
                 + "WHERE id = " + cID;
-        
+
         try {
             con = new Db().getConnection();
-            
+
             statement = con.createStatement();
             statement.executeUpdate(sql);
-            
+
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -802,25 +834,25 @@ public class DataMapper implements DataMapperIF {
                 e.getMessage();
             }
         }
-    } 
-      
+    }
+
     // upload File
     @Override
     public boolean uploadFile(String cID, String partnerID, String name, String type) {
-        
+
         String url = "/Library/Uploads/" + partnerID + "/" + cID + "/" + type + "/"; // Define the URL for the file
-        
+
         String sql = "INSERT INTO dell_files"
                 + "(id, name, poe_url, campaignID)"
                 + "VALUES (seq_POE.NEXTVAL, '" + name + "', '" + url + "', '" + cID + "')";
-        
+
         try {
             con = new Db().getConnection();
-            
+
             statement = con.createStatement();
             statement.addBatch(sql);
             statement.executeBatch();
-            
+
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -832,7 +864,7 @@ public class DataMapper implements DataMapperIF {
                 e.getMessage();
             }
         }
-    } 
+    }
 
     @Override
     public Map<Integer, AdminDashboardLine> getAdminDashboardLines() {
@@ -868,7 +900,5 @@ public class DataMapper implements DataMapperIF {
     public Map<Integer, User> getUsers() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
 
 }

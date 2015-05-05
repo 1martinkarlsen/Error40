@@ -8,7 +8,6 @@ package Controller;
 import Interfaces.ControlIF;
 import Model.Authentification;
 
-
 import Model.users.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -49,13 +48,17 @@ public class Servlet extends HttpServlet {
                     String password = request.getParameter("password");
 
                     // login - if unsuccesful return to login page
+                    
+
                     if (!control.login(username, password)) {
                         response.sendRedirect("Public/Pages/login.jsp");
-                        
-                    }
-                    // pass the User object to the web page
-                    request.getSession().setAttribute("user", control.getUser());
+                        return;
 
+                    } else {
+                        // pass the User object to the web page
+                        request.getSession().setAttribute("user", control.getUser());
+                    }
+                    
                     switch (control.getUserRank()) {
                         case 3: // Logging in as administrator
                             request.getSession().setAttribute("allAdminLines", control.getAdminDashboardLines());
@@ -66,13 +69,14 @@ public class Servlet extends HttpServlet {
                             request.getSession().setAttribute("allSellerLines", control.getSellerDashboardLines());
                             response.sendRedirect("index.jsp?show=Seller/dashboard.jsp");
                             return;
-                            
+
                         case 1: // Logging in as a partner.
                             request.getSession().setAttribute("allPartnerLines", control.getPartnerDashboardLines());
                             response.sendRedirect("index.jsp?show=Partner/dashboard.jsp");
                             return;
-                            
+
                     }
+                   return;
                 case "logout":
                     control.logout();
                     response.sendRedirect("Public/Pages/login.jsp");
@@ -81,7 +85,7 @@ public class Servlet extends HttpServlet {
                 // Logged in as admin, and clicked on particular seller, showing the partners refered to the seller.
                 case "showPartnersFromSeller":
                     request.getSession().setAttribute("allSellerLines", control.getSellerDashboardLines());
-                    
+
                     String id = request.getParameter("id");
                     request.getSession().setAttribute("id", id);
                     response.sendRedirect("index.jsp?show=Seller/dashboard.jsp");
@@ -96,27 +100,27 @@ public class Servlet extends HttpServlet {
 
                 // 
                 case "showDefaultSite":
-                    
+
                     switch (control.getUserRank()) {
-                        case 3: 
+                        case 3:
                             request.getSession().setAttribute("allAdminLines", control.getAdminDashboardLines());
                             response.sendRedirect("index.jsp?show=Admin/dashboard.jsp");
-                            
+
                             return;
-                            
-                        case 2: 
+
+                        case 2:
                             request.getSession().setAttribute("allSellerLines", control.getSellerDashboardLines());
                             response.sendRedirect("index.jsp?show=Seller/dashboard.jsp");
-                            
+
                             return;
-                            
-                        case 1: 
+
+                        case 1:
                             request.getSession().setAttribute("allPartnerLines", control.getPartnerDashboardLines());
                             response.sendRedirect("index.jsp?show=Partner/dashboard.jsp");
-                            
+
                             return;
                     }
-                    
+
                     return;
 
                 // Logged in as admin or seller, clicked on particular partner, showing all campaigns afilliated to the partner.
@@ -127,18 +131,18 @@ public class Servlet extends HttpServlet {
                     request.getSession().setAttribute("id", id);
                     response.sendRedirect("index.jsp?show=Partner/dashboard.jsp");
                     return;
-                    
+
                 case "showSingleCampaign":
                     request.getSession().setAttribute("allCampaigns", control.getCampaign());
-                    request.getSession().setAttribute("allPOEs", control.getPOEs());                  
-                    request.getSession().setAttribute("allBudget", control.getBudget());     
+                    request.getSession().setAttribute("allPOEs", control.getPOEs());
+                    request.getSession().setAttribute("allBudget", control.getBudget());
                     request.getSession().setAttribute("allUsers", control.getUsers());
-                    
+
                     id = request.getParameter("cID");
                     request.getSession().setAttribute("cID", id);
                     response.sendRedirect("index.jsp?show=campaign.jsp");
                     return;
-                    
+
                 case "updateCampaign":
                     int cID = Integer.parseInt(request.getSession().getAttribute("cID").toString());
                     System.out.println("cid: " + cID);
@@ -157,31 +161,31 @@ public class Servlet extends HttpServlet {
                     int end_month = Integer.parseInt(request.getParameter("end_month"));
                     int end_year = Integer.parseInt(request.getParameter("end_year"));
                     String objectives = request.getParameter("objectives");
-                    
-                    control.updateCampaign(cID, name, description, target, budget, start_day, start_month, start_year, 
+
+                    control.updateCampaign(cID, name, description, target, budget, start_day, start_month, start_year,
                             end_day, end_month, end_year, objectives);
-                    
+
                     response.sendRedirect("Servlet?origin=showSingleCampaign&cID=" + cID);
                     return;
-                    
+
                 case "approveCampaignRequest":
                     int userRank = control.getUserRank();
                     int choice = Integer.parseInt(request.getParameter("choice"));
                     cID = Integer.parseInt(request.getSession().getAttribute("cID").toString());
-                    
+
                     control.approveCampaignRequest(cID, userRank, choice);
-                    
+
                     response.sendRedirect("Servlet?origin=showSingleCampaign&cID=" + cID);
                     return;
-                    
+
                 case "approveCampaignPOE":
                     cID = Integer.parseInt(request.getSession().getAttribute("cID").toString());
                     choice = Integer.parseInt(request.getParameter("choice"));
-                    
+
                     control.approveCampaignPOE(cID, choice);
-                    
+
                     response.sendRedirect("Servlet?origin=showSingleCampaign&cID=" + cID);
-                    
+
                     return;
             }
             /*

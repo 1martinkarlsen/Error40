@@ -35,6 +35,13 @@ public class Db
             Class.forName(driver);
             con = DriverManager.getConnection(URL, id, pw);   // The connection will be released upon program 
 		  					      // termination by the garbage collector	
+            
+            
+            
+            
+            
+            
+            
         } catch (Exception e)
         {
             System.out.println("\n*** Remember to insert your Oracle ID and PW in the DBConnector class! ***\n");
