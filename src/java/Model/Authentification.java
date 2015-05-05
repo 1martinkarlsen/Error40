@@ -22,13 +22,7 @@ import java.util.logging.Logger;
  */
 public class Authentification implements AuthentificationIF {
 
-    List<User> users = new ArrayList();
-
-    @Override
-    public List<User> getUsers() {
-        return users;
-    }
-
+    
     
     
     private Statement statement;
@@ -36,9 +30,13 @@ public class Authentification implements AuthentificationIF {
     private Connection con;
     private ResultSet rs;
 
-    public Authentification() {
+   
+    
+    // if the username exists and the password and the password also exists return that User
+    @Override
+    public User validate(String username, String password) {
         
-        String sql = "SELECT * FROM dell_users";
+        String sql = "SELECT * FROM dell_users WHERE username = '" + username + "' AND password = '" + password + "'";
         try {
             con = new Db().getConnection();
             
@@ -46,7 +44,7 @@ public class Authentification implements AuthentificationIF {
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                users.add(new User(rs.getInt("id"), rs.getInt("rank"), rs.getString("userName"), rs.getString("password"), rs.getString("firstname"), rs.getString("lastname")));
+                return new User(rs.getInt("id"), rs.getInt("rank"), rs.getString("userName"), rs.getString("password"), rs.getString("firstname"), rs.getString("lastname"));
             }
 
         } catch (SQLException ex) {
@@ -58,19 +56,14 @@ public class Authentification implements AuthentificationIF {
             con.close();
         } catch (Exception e) {
         }
-    }
-    
-    // if the username exists and the password and the password also exists return that User
-    @Override
-    public User validate(String username, String password) {
-        for(User u : users) {
-            if(username.equals(u.getUserName())) {
-                if(password.equals(u.getPassword())) {
-                    return u;
-                }
-            }
-        }
+        
+        
         return null;
+    }
+
+    @Override
+    public List<User> getUsers() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

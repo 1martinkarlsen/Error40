@@ -153,4 +153,9 @@ public class DataMapperStub implements DataMapperIF {
     public boolean approveCampaignPOE(int cID, int choice) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void resetViews() {
+        return;
+    }
 }

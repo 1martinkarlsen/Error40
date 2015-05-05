@@ -15,7 +15,7 @@ import java.util.List;
 public interface AuthentificationIF {
 
     List<User> getUsers();
-
+    
     // if the username exists and the password and the password also exists return that User
     User validate(String username, String password);
     
