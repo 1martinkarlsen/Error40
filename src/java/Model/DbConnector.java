@@ -10,7 +10,7 @@ import java.sql.SQLException;
  *                          - without singleton now
  * 
  */
-public class Db
+public class DbConnector
 {
     
     // We use different Database Accounts because we 
@@ -27,8 +27,8 @@ public class Db
     private Connection con;
 
     //--  No more Singleton ---- 
-    private static Db instance;
-    public Db()
+    private static DbConnector instance;
+    public DbConnector()
     {
         try
         {

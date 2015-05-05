@@ -26,7 +26,7 @@ public class Authentification implements AuthentificationIF {
     
     
     private Statement statement;
-    private Db db;
+    private DbConnector db;
     private Connection con;
     private ResultSet rs;
 
@@ -38,7 +38,7 @@ public class Authentification implements AuthentificationIF {
         
         String sql = "SELECT * FROM dell_users WHERE username = '" + username + "' AND password = '" + password + "'";
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
             
             statement = con.createStatement();
             rs = statement.executeQuery(sql);

@@ -28,7 +28,7 @@ public class DataMapper implements DataMapperIF {
 //    Map<String, SellerDashboardLine> sellerDashboardLines = new HashMap(); // Liste over den information der skal vises på Seller dashboard.
 //    Map<String, PartnerDashboardLine> partnerDashboardLines = new HashMap(); // Liste over den information der skal vises på Partner dashboard.
     private Statement statement;
-    private Db db;
+    private DbConnector db;
     private Connection con;
     private ResultSet rs;
 
@@ -40,7 +40,7 @@ public class DataMapper implements DataMapperIF {
         String sql3a = "drop view query4";
 
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             //create a single sql query out of many 
             statement = con.createStatement();
@@ -71,7 +71,7 @@ public class DataMapper implements DataMapperIF {
         Map<Integer, User> users = new HashMap();
         String sql = "SELECT * FROM dell_users";
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
@@ -98,7 +98,7 @@ public class DataMapper implements DataMapperIF {
         Map<Integer, Budget> budgets = new HashMap();
         String sql = "SELECT * FROM dell_budget";
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
@@ -126,7 +126,7 @@ public class DataMapper implements DataMapperIF {
         Map<Integer, Campaign> campaigns = new HashMap();
         String sql = "SELECT * FROM dell_campaigns";
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
@@ -173,7 +173,7 @@ public class DataMapper implements DataMapperIF {
         Map<Integer, POE> poes = new HashMap();
         String sql = "SELECT * FROM dell_files";
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
@@ -243,7 +243,7 @@ public class DataMapper implements DataMapperIF {
         String sql3a = "drop view query4";
 
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             //create a single sql query out of many 
             statement = con.createStatement();
@@ -308,7 +308,7 @@ public class DataMapper implements DataMapperIF {
         String sql = "select id from dell_users where rank = 2";
 
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
@@ -481,7 +481,7 @@ public class DataMapper implements DataMapperIF {
         String sql = "select id from dell_users where rank = 2";
 
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
@@ -559,7 +559,7 @@ public class DataMapper implements DataMapperIF {
         String sql = "select u.id from dell_users u where u.rank = 1";
 
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             statement = con.createStatement();
             rs = statement.executeQuery(sql);
@@ -655,7 +655,7 @@ public class DataMapper implements DataMapperIF {
 
         String cID = null;
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             // Insert campaign.
             statement = con.createStatement();
@@ -714,7 +714,7 @@ public class DataMapper implements DataMapperIF {
                 + "WHERE id =" + cID;
 
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             statement = con.createStatement();
             rs = statement.executeQuery(sqlGetBudgetID);
@@ -751,7 +751,7 @@ public class DataMapper implements DataMapperIF {
                 + "WHERE id='" + cID + "' ";
 
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             statement = con.createStatement();
             rs = statement.executeQuery(getStepNumber);
@@ -787,7 +787,7 @@ public class DataMapper implements DataMapperIF {
         String SQL = null;
 
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             if (rank == 1) {
                 SQL = partnerProjectSQL;
@@ -818,7 +818,7 @@ public class DataMapper implements DataMapperIF {
                 + "WHERE id = " + cID;
 
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             statement = con.createStatement();
             statement.executeUpdate(sql);
@@ -847,7 +847,7 @@ public class DataMapper implements DataMapperIF {
                 + "VALUES (seq_POE.NEXTVAL, '" + name + "', '" + url + "', '" + cID + "')";
 
         try {
-            con = new Db().getConnection();
+            con = new DbConnector().getConnection();
 
             statement = con.createStatement();
             statement.addBatch(sql);
