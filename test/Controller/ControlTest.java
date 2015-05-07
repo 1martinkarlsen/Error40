@@ -54,7 +54,7 @@ public class ControlTest {
     }
 
     @Test
-    public void testLogin() {
+    public void testLoginTrue() {
         DataMapperIF dm = new DataMapperStub();
         AuthentificationIF au = new AuthentificationStub();
         ControlIF control = new Control(dm, au);
@@ -68,6 +68,23 @@ public class ControlTest {
         assertEquals(expResult, result);
         
     }
+    
+    @Test
+    public void testLoginFalse() {
+        DataMapperIF dm = new DataMapperStub();
+        AuthentificationIF au = new AuthentificationStub();
+        ControlIF control = new Control(dm, au);
+        
+        System.out.println("login");
+        String username = "dummName";
+        String password = "dummyPw";
+        
+        boolean expResult = false;
+        boolean result = control.login(username, password);
+        assertEquals(expResult, result);
+        
+    }
+
 
     @Test
     public void testGetAdminDashboardLines() {
