@@ -621,6 +621,10 @@ public class DataMapper implements DataMapperIF {
                 + "WHERE id=" + bID;
 
         try {
+            if(value < 0) {
+                return false;
+            }
+            
             statement = con.createStatement();
             statement.addBatch(sql);
             statement.executeBatch();

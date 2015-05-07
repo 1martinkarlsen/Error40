@@ -9,16 +9,6 @@ DROP SEQUENCE seq_campaigns;
 DROP SEQUENCE seq_POE;
 DROP SEQUENCE seq_budget;
 
-
-/* User table */
-/* 
-    1. Rank = status of user.
-        - 1 = Partner         
-        - 2 = Seller
-        - 3 = Admin
-
-
-*/
 CREATE TABLE dell_users (
     id NUMBER NOT NULL,
     rank NUMBER NOT NULL,

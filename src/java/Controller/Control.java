@@ -138,7 +138,6 @@ public class Control implements ControlIF {
     @Override
     public void approveCampaignPOE(int cID, int choice) {
         if (dm.approveCampaignPOE(cID, choice)) {
-            System.out.println("Approve worked!");
             for (Map.Entry<Integer, Campaign> entry : dm.getAllCampaigns().entrySet()) {
                 if (entry.getKey() == cID) {
                     if (entry.getValue().getApprove_seller_POE() == 1) {
